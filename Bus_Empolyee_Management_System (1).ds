@@ -1,0 +1,7661 @@
+/*
+ * Author       : karthikishore111
+ * Generated on : 26-Nov-2025 10:47:43
+ * Version      : 1.0
+ */
+ application "Bus Empolyee Management System"
+ {
+ 	date format = "dd-MMM-yyyy"
+ 	time zone = "Asia/Kolkata"
+ 	time format = "24-hr"
+ 	forms
+	{
+		form Active_Staff_Allote
+		{
+			displayname = "Active Staff Allote"
+			success message = "Active Staff Added Successfully"
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			Role3
+			(
+				type = picklist	
+				displayname = "Role"
+				values  = Active_Staff_Role_Base_Salary.ID
+    			displayformat = [Role]
+				sortorder = ascending
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Name
+			(
+    			type = name
+     			prefix
+     			(
+	     			 type = prefix
+	     			 displayname ="Prefix"
+	     			 visibility = false
+	     			 value = {"Mr.","Mrs.","Ms."}
+     			) 
+     			first_name
+     			(
+	     			 type = first_name
+	     			 displayname ="First Name"
+     			) 
+     			last_name
+     			(
+	     			 type = last_name
+	     			 displayname ="Last Name"
+	     			 visibility = false
+     			) 
+     			suffix
+     			(
+	     			 type = suffix
+	     			 displayname ="Suffix"
+	     			 visibility = false
+     			) 
+	 			row = 1
+	 			column = 1   
+				width = medium
+				personal data = true
+			)
+			Date_field
+			(
+    			type = date
+				displayname = "Date"
+				alloweddays = 0,1,2,3,4,5,6
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Active_Staff_ID
+			(
+				type = picklist	
+				displayname = "Active Staff ID"
+				values  = Active_Staff_Registratione[Role.ID == input.Role3].ID
+    			displayformat = [Active_Staff_ID]
+				allow new entries
+				[
+					displayname = "Add New Active Staff"
+				]
+				sortorder = ascending
+	 			row = 1
+	 			column = 2   
+				width = medium
+			)
+			Bus_Number
+			(
+    			type = text
+				displayname = "Bus Number"
+	 			row = 1
+	 			column = 2   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					Change_Staff
+					(
+   						type = submit
+   						displayname = "Change Staff"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+		form Active_Staff_Registratione
+		{
+			displayname = "Active Staff Registration"
+			success message = "Data Added Successfully!"
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			Active_Staff_ID
+			(
+    			type = text
+				displayname = "Active Staff ID"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Auto_Number
+			(
+    			type = autonumber
+				displayname = "Auto Number"
+				start index = 700
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Name
+			(
+    			type = name
+     			prefix
+     			(
+	     			 type = prefix
+	     			 displayname ="Prefix"
+	     			 visibility = false
+	     			 value = {"Mr.","Mrs.","Ms."}
+     			) 
+     			first_name
+     			(
+	     			 type = first_name
+	     			 displayname ="First Name"
+     			) 
+     			last_name
+     			(
+	     			 type = last_name
+	     			 displayname ="Last Name"
+	     			 visibility = false
+     			) 
+     			suffix
+     			(
+	     			 type = suffix
+	     			 displayname ="Suffix"
+	     			 visibility = false
+     			) 
+    			description
+    			[
+    				type = help_text
+    			 	message = "Example : Karthikeyan R"
+    			]
+	 			row = 1
+	 			column = 1   
+				width = medium
+				personal data = true
+			)
+			must have Role
+			(
+				type = picklist	
+				values  = Active_Staff_Role_Base_Salary.ID
+    			displayformat = [Role]
+				sortorder = ascending
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Per_Day_Salary
+			(
+				displayname = "Per Day Salary"
+				type = INR
+				format = commadotindian
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Phone_Number
+			(
+    			type = phonenumber
+				displayname = "Phone Number"
+    			allowedcountries={in}
+	 			row = 1
+	 			column = 1   
+				width = medium
+				personal data = true
+			)
+			Status
+			(
+				type = radiobuttons
+				maxchar = 100
+				values = {"Active","inActive","Process"}
+				initial value = "Process"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Address
+			(
+    			type = address
+     			capture_coordinates = true
+     			adjust_using_map = false
+     			address_line_1
+     			(
+	     			  type = address_line_1
+	     			  displayname = "Address Line 1"
+     			) 
+     			address_line_2
+     			(
+	     			  type = address_line_2
+	     			  displayname = "Address Line 2"
+     			) 
+     			district_city
+     			(
+	     			  type = district_city
+	     			  displayname = "City / District"
+	     			 visibility = false
+     			) 
+     			state_province
+     			(
+	     			  type = state_province
+	     			  displayname = "State / Province"
+	     			 visibility = false
+     			) 
+     			postal_Code
+     			(
+	     			  type = postal_Code
+	     			  displayname = "Postal Code"
+     			) 
+     			country
+     			(
+	     			  type = country
+	     			  displayname = "Country"
+	     			 visibility = false
+     			) 
+     			latitude
+     			(
+	     			  type = latitude
+	     			  displayname = "latitude"
+	     			 visibility = false
+     			) 
+     			longitude
+     			(
+	     			  type = longitude
+	     			  displayname = "longitude"
+	     			 visibility = false
+     			) 
+	 			row = 1
+	 			column = 2   
+				width = medium
+				personal data = true
+			)
+			Uplode_Driving_Licence
+			(
+    			type = upload file
+				displayname = "Uplode Driving Licence"
+				browse = local_drive
+	 			row = 1
+	 			column = 2   
+				width = medium
+			)
+			Driving_Licence_Number
+			(
+    			type = text
+				displayname = "Driving Licence Number"
+	 			row = 1
+	 			column = 2   
+				width = medium
+						AI_Properties
+						(
+									fieldtype = OCR
+									modelname = "Driving_Licence"
+									basefield = Uplode_Driving_Licence
+									taggedfield = "Driving Licence Number"
+						)
+			)
+	
+			actions
+			{
+				on add
+				{
+					Register_Now
+					(
+   						type = submit
+   						displayname = "Register Now"
+					)
+					reset
+					(
+   						type = reset
+   						displayname = "Reset"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+		form Active_Staff_Role_Base_Salary
+		{
+			displayname = "Active Staff Role Base Salary"
+			success message = "Active Staff Role Base Salary Added Successfully"
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			Role
+			(
+    			type = text
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Salary
+			(
+				type = INR
+				format = commadotindian
+	 			row = 1
+	 			column = 2   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+					reset
+					(
+   						type = reset
+   						displayname = "Reset"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+		form Bus_Brand_Name
+		{
+			displayname = "Bus Brand Name"
+			success message = "Bus Brand Name Added Successfully"
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			must have unique Brand_Name
+			(
+    			type = text
+				displayname = "Brand Name"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+					reset
+					(
+   						type = reset
+   						displayname = "Reset"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+		form Bus_Register_Details
+		{
+			displayname = "Bus Register Details"
+			success message = "Bus Register Detail Added Successfully"
+			feature property = 128
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			must have Brand_Name
+			(
+				type = picklist	
+				displayname = "Brand Name"
+				values  = Bus_Brand_Name.ID
+    			displayformat = [Brand_Name]
+				allow new entries
+				[
+					displayname = "Add New Brand"
+				]
+				sortorder = ascending
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have unique Bus_Registration_Number
+			(
+    			type = text
+				displayname = "Bus Registration Number"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Uplode_RC_Book
+			(
+    			type = upload file
+				displayname = "Uplode RC Book"
+				browse = local_drive, google_docs, zoho_docs
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Auto_Number
+			(
+    			type = autonumber
+				displayname = "Auto Number"
+				start index = 1
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Bus_Status
+			(
+				type = radiobuttons
+				displayname = "Bus Status"
+				maxchar = 100
+				values = {"Active","Under Maintenance"}
+				initial value = "Active"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Count_For_Schedules
+			(
+				type = number
+				displayname = "Count For Schedules"
+				initial value = 0
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Bus_Type
+			(
+				type = picklist	
+				displayname = "Bus Type"
+				values  = Bus_Types_Master.ID
+    			displayformat = [Bus_Type]
+				allow new entries
+				[
+					displayname = "Add New Type"
+				]
+				sortorder = ascending
+	 			row = 1
+	 			column = 2   
+				width = medium
+			)
+			must have Seating_Capacity
+			(
+				type = number
+				displayname = "Seating Capacity"
+				maxchar = 2
+	 			row = 1
+	 			column = 2   
+				width = medium
+			)
+			Bus_ID
+			(
+    			type = text
+				displayname = "Bus ID"
+	 			row = 1
+	 			column = 2   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					Register
+					(
+   						type = submit
+   						displayname = "Register"
+					)
+					reset
+					(
+   						type = reset
+   						displayname = "Reset"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+		form Bus_Routes
+		{
+			displayname = "Bus Routes"
+			success message = "Bus Route Added Successfully"
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			must have Start_Location
+			(
+    			type = text
+				displayname = "Start Location"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Route_ID
+			(
+    			type = text
+				displayname = "Route ID"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Auto_Number
+			(
+    			type = autonumber
+				displayname = "Auto Number"
+				start index = 2001
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Route_Status
+			(
+				type = radiobuttons
+				displayname = "Route Status"
+				maxchar = 100
+				values = {"Active","in Active"}
+				initial value = "Active"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Route_Count_For_Schedule
+			(
+				type = number
+				displayname = "Route Count For Schedule"
+				initial value = 0
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have End_Location
+			(
+    			type = text
+				displayname = "End Location"
+	 			row = 1
+	 			column = 2   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					Register
+					(
+   						type = submit
+   						displayname = "Register"
+					)
+					reset
+					(
+   						type = reset
+   						displayname = "Reset"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+		form Bus_Types_Master
+		{
+			displayname = "Bus Types Master"
+			success message = "Data Added Successfully!"
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			must have unique Bus_Type
+			(
+    			type = text
+				displayname = "Bus Type"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+					reset
+					(
+   						type = reset
+   						displayname = "Reset"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+		form Check_in_Check_out
+		{
+			displayname = "Check in & Check out"
+			success message = "Data Added Successfully!"
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			status
+			(
+				type = radiobuttons
+				maxchar = 100
+				values = {"Check in","Check out","Check Out Missing"}
+				initial value = "Check in"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Staff_ID
+			(
+    			type = text
+				displayname = "Staff ID"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Staff_Name
+			(
+    			type = name
+				displayname = "Staff Name"
+     			prefix
+     			(
+	     			 type = prefix
+	     			 displayname ="Prefix"
+	     			 visibility = false
+	     			 value = {"Mr.","Mrs.","Ms."}
+     			) 
+     			first_name
+     			(
+	     			 type = first_name
+	     			 displayname ="First Name"
+     			) 
+     			last_name
+     			(
+	     			 type = last_name
+	     			 displayname ="Last Name"
+	     			 visibility = false
+     			) 
+     			suffix
+     			(
+	     			 type = suffix
+	     			 displayname ="Suffix"
+	     			 visibility = false
+     			) 
+	 			row = 1
+	 			column = 1   
+				width = medium
+				personal data = true
+			)
+			Role
+			(
+    			type = text
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Check_In_Date_Time
+			(
+    			type = datetime
+				displayname = "Check In Date-Time"
+				initial value = "${zoho.currenttime}"
+				timedisplayoptions = "hh:mm:ss"
+				alloweddays = 0,1,2,3,4,5,6
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Check_Out_Date_Time
+			(
+    			type = datetime
+				displayname = "Check Out Date-Time"
+				timedisplayoptions = "hh:mm:ss"
+				alloweddays = 0,1,2,3,4,5,6
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Check_in_Check_out_ID
+			(
+    			type = autonumber
+				displayname = "Check in & Check out ID"
+				start index = 3000
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+					reset
+					(
+   						type = reset
+   						displayname = "Reset"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+		form Copy_of_Check_in_Check_out
+		{
+			displayname = "Copy of Check in & Check out"
+			store data in zc = false
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			Date_field
+			(
+    			type = date
+				displayname = "Date"
+				initial value = "05-Oct-2025"
+				alloweddays = 0,1,2,3,4,5,6
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Staff_ID_Staff_Name
+			(
+				type = picklist	
+				displayname = "Staff ID & Staff Name"
+				values  = Employee_Details[Present_Status == "Present"].ID
+    			displayformat = [Staff_ID]
+				sortorder = ascending
+	 			row = 1
+	 			column = 2   
+				width = medium
+			)
+	
+		}
+		form Copy_Of_Employee_State_Less_Form
+		{
+			displayname = "Copy Of Employee State Less Form"
+			store data in zc = false
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			Role
+			(
+				type = picklist	
+				values  = Role_Based_Salary_Details.ID
+    			displayformat = [Role]
+				sortorder = ascending
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Staff_ID
+			(
+				type = picklist	
+				displayname = "Staff ID"
+				values  = Employee_Details[Role.Role == input.Role.Role].ID
+    			displayformat = [Staff_ID]
+				sortorder = ascending
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+	
+		}
+		form Employee_Details
+		{
+			displayname = "Employee Details"
+			captcha = true
+			success message = "Employee Detail Added Successfully"
+			feature property = 448
+			Section1
+			(
+				type = section
+				displayname = "Section"
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			must have Name
+			(
+    			type = name
+     			prefix
+     			(
+	     			 type = prefix
+	     			 displayname ="Prefix"
+	     			 visibility = false
+	     			 value = {"Mr.","Mrs.","Ms."}
+     			) 
+     			first_name
+     			(
+	     			 type = first_name
+	     			 displayname ="First Name"
+     			) 
+     			last_name
+     			(
+	     			 type = last_name
+	     			 displayname ="Last Name"
+	     			 visibility = false
+     			) 
+     			suffix
+     			(
+	     			 type = suffix
+	     			 displayname ="Suffix"
+	     			 visibility = false
+     			) 
+    			description
+    			[
+    				type = help_text
+    			 	message = "Example : Karthikeyan R"
+    			]
+	 			row = 1
+	 			column = 1   
+				width = medium
+				personal data = true
+			)
+			Email
+			(
+    			type = email
+				maxchar = 80
+	 			row = 1
+	 			column = 1   
+				width = medium
+				personal data = true
+			)
+			must have Address
+			(
+    			type = address
+     			capture_coordinates = true
+     			adjust_using_map = false
+     			address_line_1
+     			(
+	     			  type = address_line_1
+	     			  displayname = "Address Line 1"
+     			) 
+     			address_line_2
+     			(
+	     			  type = address_line_2
+	     			  displayname = "Address Line 2"
+     			) 
+     			district_city
+     			(
+	     			  type = district_city
+	     			  displayname = "City / District"
+     			) 
+     			state_province
+     			(
+	     			  type = state_province
+	     			  displayname = "State / Province"
+	     			 visibility = false
+     			) 
+     			postal_Code
+     			(
+	     			  type = postal_Code
+	     			  displayname = "Postal Code"
+     			) 
+     			country
+     			(
+	     			  type = country
+	     			  displayname = "Country"
+	     			 visibility = false
+     			) 
+     			latitude
+     			(
+	     			  type = latitude
+	     			  displayname = "latitude"
+	     			 visibility = false
+     			) 
+     			longitude
+     			(
+	     			  type = longitude
+	     			  displayname = "longitude"
+	     			 visibility = false
+     			) 
+	 			row = 1
+	 			column = 1   
+				width = medium
+				personal data = true
+			)
+			Uplode_Driving_Licence
+			(
+    			type = upload file
+				displayname = "Uplode Driving Licence"
+				browse = local_drive, google_docs, zoho_docs
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Driving_Licence_Number
+			(
+    			type = text
+				displayname = "Driving Licence Number"
+	 			row = 1
+	 			column = 1   
+				width = medium
+						AI_Properties
+						(
+									fieldtype = OCR
+									modelname = "Driving_Licence"
+									basefield = Uplode_Driving_Licence
+									taggedfield = "Driving Licence Number"
+						)
+			)
+			must have Joing_Date
+			(
+    			type = date
+				displayname = "Joing Date"
+				initial value = "${zoho.currentdate}"
+				alloweddays = 0,1,2,3,4,5,6
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Phone_Number1
+			(
+    			type = phonenumber
+				displayname = "Phone Number"
+	 			row = 1
+	 			column = 2   
+				width = medium
+				personal data = true
+			)
+			must have Date_of_Birth
+			(
+    			type = date
+				displayname = "Date of Birth"
+				alloweddays = 0,1,2,3,4,5,6
+	 			row = 1
+	 			column = 2   
+				width = medium
+			)
+			must have Employee_Image
+			(
+    			type = image
+				displayname = "Employee Image"
+				source  = file
+				aspect ratio = original
+				camera = primary
+				show gallery = true
+				switch camera = true
+	 			row = 1
+	 			column = 2   
+				width = medium
+			)
+			must have Uplode_ID_Proof
+			(
+    			type = upload file
+				displayname = "Uplode ID Proof"
+				browse = local_drive
+	 			row = 1
+	 			column = 2   
+				width = medium
+			)
+			must have Role
+			(
+				type = picklist	
+				values  = Role_Based_Salary_Details.ID
+    			displayformat = [Role]
+				sortorder = ascending
+	 			row = 1
+	 			column = 2   
+				width = medium
+			)
+			Salary
+			(
+				type = INR
+				format = commadotindian
+	 			row = 1
+	 			column = 2   
+				width = medium
+			)
+			must have Uplode_Documents
+			(
+				type = grid
+				displayname = "Uplode Documents"
+				values  = Upload_important_certificate_for_employees.ID
+				defaultrow = 1
+				maxrow = 1
+	 			row = 2
+	 			column = 1   
+				width = medium
+			)
+			Section
+			(
+				type = section
+	 			row = 3
+	 			column = 0   
+				width = medium
+			)
+			Staff_ID
+			(
+    			type = text
+				displayname = "Staff ID"
+	 			row = 3
+	 			column = 1   
+				width = medium
+			)
+			Status
+			(
+				type = picklist
+				maxchar = 100
+				values = {"Processing","Reject","Active","On Leave","Resigned"}
+				initial value = "Processing"
+	 			row = 3
+	 			column = 1   
+				width = medium
+			)
+			Status1
+			(
+    			type = text
+				initial value = "0"
+	 			row = 3
+	 			column = 1   
+				width = medium
+			)
+			Section2
+			(
+				type = section
+				displayname = "Section"
+	 			row = 4
+	 			column = 0   
+				width = medium
+			)
+			Present_Status
+			(
+				type = radiobuttons
+				displayname = "Present Status"
+				maxchar = 100
+				values = {"Present","Absent"}
+				initial value = "Absent"
+	 			row = 4
+	 			column = 1   
+				width = medium
+			)
+			Check_In_OR_Check_Out_Count
+			(
+				type = number
+				displayname = "Check In OR Check Out Count"
+				initial value = 0
+	 			row = 4
+	 			column = 1   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					Apply_Now
+					(
+   						type = submit
+   						displayname = "Apply Now"
+					)
+					reset
+					(
+   						type = reset
+   						displayname = "Reset"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+		form Employee_Pay_Details
+		{
+			displayname = "Employee Pay Details"
+			success message = "Employee Pay Detail Added Successfully"
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			Transection_Date_Time
+			(
+    			type = datetime
+				displayname = "Transection Date & Time"
+				initial value = "${zoho.currenttime}"
+				timedisplayoptions = "hh:mm:ss"
+				alloweddays = 0,1,2,3,4,5,6
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Employee_ID
+			(
+    			type = text
+				displayname = "Employee ID"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Employee_Name
+			(
+    			type = name
+				displayname = "Employee Name"
+     			prefix
+     			(
+	     			 type = prefix
+	     			 displayname ="Prefix"
+	     			 visibility = false
+	     			 value = {"Mr.","Mrs.","Ms."}
+     			) 
+     			first_name
+     			(
+	     			 type = first_name
+	     			 displayname ="First Name"
+     			) 
+     			last_name
+     			(
+	     			 type = last_name
+	     			 displayname ="Last Name"
+	     			 visibility = false
+     			) 
+     			suffix
+     			(
+	     			 type = suffix
+	     			 displayname ="Suffix"
+	     			 visibility = false
+     			) 
+	 			row = 1
+	 			column = 1   
+				width = medium
+				personal data = true
+			)
+			Email
+			(
+    			type = email
+				maxchar = 80
+	 			row = 1
+	 			column = 1   
+				width = medium
+				personal data = true
+			)
+			Role
+			(
+    			type = text
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Salary
+			(
+				type = INR
+				format = commadotindian
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+		form Empolyee_Shift_Allotment
+		{
+			displayname = "Empolyee Shift Allotment"
+			success message = "Empolyee Shift Allotment Added Successfully"
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			must have Bus_ID_Bus_Registration_Number
+			(
+				type = picklist	
+				displayname = "Bus ID & Bus Registration Number"
+				values  = Bus_Register_Details[Bus_Status == "Active"].ID
+    			displayformat = [Bus_ID + " - " + Bus_Registration_Number]
+				sortorder = ascending
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Shift_Days
+			(
+				type = list	
+				displayname = "Shift Days"
+				values = {"monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"}
+				height = 60px
+	 			row = 1
+	 			column = 2   
+				width = medium
+			)
+			Section2
+			(
+				type = section
+				displayname = "Section"
+	 			row = 2
+	 			column = 0   
+				width = medium
+			)
+			must have Driver_ID
+			(
+				type = picklist	
+				displayname = "Driver ID"
+				values  = Employee_Details[Role.Role == "Driver"].ID
+    			displayformat = [Staff_ID + " - " + Name.first_name]
+				sortorder = ascending
+	 			row = 2
+	 			column = 1   
+				width = medium
+			)
+			must have Conductor_ID
+			(
+				type = picklist	
+				displayname = "Conductor ID"
+				values  = Employee_Details[Role.Role == "Conductor"].ID
+    			displayformat = [Staff_ID + "-" + Name.first_name]
+				sortorder = ascending
+	 			row = 2
+	 			column = 1   
+				width = medium
+			)
+			must have Cleaner_ID
+			(
+				type = picklist	
+				displayname = "Cleaner ID"
+				values  = Employee_Details[Role.Role == "Cleaner"].ID
+    			displayformat = [Staff_ID + " - " + Name.first_name]
+				sortorder = ascending
+	 			row = 2
+	 			column = 1   
+				width = medium
+			)
+			Driver_Name
+			(
+    			type = text
+				displayname = "Driver Name"
+	 			row = 2
+	 			column = 2   
+				width = medium
+			)
+			Conductor_Name
+			(
+    			type = text
+				displayname = "Conductor Name"
+	 			row = 2
+	 			column = 2   
+				width = medium
+			)
+			Cleaner_Name
+			(
+    			type = text
+				displayname = "Cleaner Name"
+	 			row = 2
+	 			column = 2   
+				width = medium
+			)
+			Section1
+			(
+				type = section
+				displayname = "Section"
+	 			row = 3
+	 			column = 0   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					Assign_Employee
+					(
+   						type = submit
+   						displayname = "Assign Employee"
+					)
+					reset
+					(
+   						type = reset
+   						displayname = "Reset"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+		form Feed_Back_Form
+		{
+			displayname = "Feed Back Form"
+			success message = "Data Added Successfully!"
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			Name
+			(
+    			type = text
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Email
+			(
+    			type = email
+				maxchar = 80
+	 			row = 1
+	 			column = 1   
+				width = medium
+				personal data = true
+			)
+			Message
+			(
+    			type = textarea
+				height = 100px
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+		form Leave_Request
+		{
+			displayname = "Leave Request"
+			success message = "Leave Request Added Successfully"
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			must have Employee_ID_Employee_Name
+			(
+				type = picklist	
+				displayname = "Employee ID& Employee Name"
+				values  = Employee_Details.ID
+    			displayformat = [Staff_ID + " - " + Name.first_name]
+				sortorder = ascending
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Role
+			(
+    			type = text
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Leave_Start_Date
+			(
+    			type = date
+				displayname = "Leave Start Date"
+				alloweddays = 0,1,2,3,4,5,6
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			No_of_Days_Leave
+			(
+				type = number
+				displayname = "No of Days Leave"
+				initial value = 0
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Leave_Status
+			(
+				type = radiobuttons
+				displayname = "Leave Status"
+				maxchar = 100
+				values = {"Process","Approve","Reject"}
+				initial value = "Process"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Apply_Date
+			(
+    			type = date
+				displayname = "Apply Date"
+				initial value = "${zoho.currentdate}"
+				alloweddays = 0,1,2,3,4,5,6
+	 			row = 1
+	 			column = 2   
+				width = medium
+			)
+			Bus_Number
+			(
+    			type = text
+				displayname = "Bus Number"
+	 			row = 1
+	 			column = 2   
+				width = medium
+			)
+			must have Leave_End_Date
+			(
+    			type = date
+				displayname = "Leave End Date"
+				alloweddays = 0,1,2,3,4,5,6
+	 			row = 1
+	 			column = 2   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					Send_Request
+					(
+   						type = submit
+   						displayname = "Send Request"
+					)
+					reset
+					(
+   						type = reset
+   						displayname = "Reset"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+		form resignation_form
+		{
+			displayname = "resignation form"
+			success message = "Resignation Added Successfully"
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			Date_Time
+			(
+    			type = datetime
+				displayname = "Date-Time"
+				initial value = "${zoho.currenttime}"
+				timedisplayoptions = "hh:mm:ss"
+				alloweddays = 0,1,2,3,4,5,6
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Section1
+			(
+				type = section
+				displayname = "Section"
+	 			row = 2
+	 			column = 0   
+				width = medium
+			)
+			must have Employee_ID
+			(
+				type = picklist	
+				displayname = "Employee ID"
+				values  = Employee_Details.ID
+    			displayformat = [Staff_ID]
+				sortorder = ascending
+	 			row = 2
+	 			column = 1   
+				width = medium
+			)
+			Name
+			(
+    			type = name
+     			prefix
+     			(
+	     			 type = prefix
+	     			 displayname ="Prefix"
+	     			 visibility = false
+	     			 value = {"Mr.","Mrs.","Ms."}
+     			) 
+     			first_name
+     			(
+	     			 type = first_name
+	     			 displayname ="First Name"
+     			) 
+     			last_name
+     			(
+	     			 type = last_name
+	     			 displayname ="Last Name"
+	     			 visibility = false
+     			) 
+     			suffix
+     			(
+	     			 type = suffix
+	     			 displayname ="Suffix"
+	     			 visibility = false
+     			) 
+	 			row = 2
+	 			column = 2   
+				width = medium
+				personal data = true
+			)
+			Role
+			(
+    			type = text
+	 			row = 2
+	 			column = 3   
+				width = medium
+			)
+			Section2
+			(
+				type = section
+				displayname = "Section"
+	 			row = 3
+	 			column = 0   
+				width = medium
+			)
+			must have Reason
+			(
+    			type = textarea
+				height = 100px
+	 			row = 3
+	 			column = 1   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+		form Role_Based_Salary_Details
+		{
+			displayname = "Role Based Salary Details"
+			success message = "Data Added Successfully!"
+			feature property = 128
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			must have Role
+			(
+    			type = text
+				displayname = "Role "
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Salary
+			(
+				type = INR
+				format = commadotindian
+	 			row = 1
+	 			column = 2   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+					reset
+					(
+   						type = reset
+   						displayname = "Reset"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+		form Salary_Master
+		{
+			displayname = "Salary Master"
+			success message = "$payment successful$!"
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			count_field
+			(
+				type = number
+				displayname = "count"
+				initial value = 0
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Transection_ID
+			(
+    			type = text
+				displayname = "Transection ID"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Status
+			(
+				type = radiobuttons
+				displayname = "Status "
+				maxchar = 100
+				values = {"Paid","Unpaid"}
+				initial value = "Unpaid"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Auto_Number
+			(
+    			type = autonumber
+				displayname = "Auto Number"
+				start index = 500026500013
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Employee_Detail
+			(
+				type = grid
+				displayname = "Employee Details"
+				values  = Employee_Pay_Details.ID
+	 			row = 2
+	 			column = 1   
+				width = medium
+			)
+			Section2
+			(
+				type = section
+				displayname = ""
+	 			row = 3
+	 			column = 0   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					Pay_Now
+					(
+   						type = submit
+   						displayname = "Pay Now"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+		form Trip_Schedules_Ex_sub
+		{
+			displayname = "Trip Schedules"
+			success message = "Trip Schedule Added Successfully"
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			Trip_Date
+			(
+    			type = date
+				displayname = "Trip Date"
+				alloweddays = 0,1,2,3,4,5,6
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Trip_Day
+			(
+    			type = text
+				displayname = "Trip Day"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Bus_Number
+			(
+    			type = text
+				displayname = "Bus Number"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Driver_ID
+			(
+    			type = text
+				displayname = "Driver ID "
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Driver_Name
+			(
+    			type = text
+				displayname = "Driver Name"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Drive_Role
+			(
+    			type = text
+				displayname = "Role"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Conductor_ID
+			(
+    			type = text
+				displayname = "Conductor ID"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Conductor_Name
+			(
+    			type = text
+				displayname = "Conductor Name"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Conductor_Role
+			(
+    			type = text
+				displayname = "Role"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Cleaner_ID
+			(
+    			type = text
+				displayname = "Cleaner ID"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Cleaner_Name
+			(
+    			type = text
+				displayname = "Cleaner Name"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Cleaner_Role
+			(
+    			type = text
+				displayname = "Role"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Trip_Status
+			(
+				type = picklist
+				displayname = "Trip Status"
+				maxchar = 100
+				values = {"Scheduled","Completed","Cancelled"}
+				initial value = "Scheduled"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+					reset
+					(
+   						type = reset
+   						displayname = "Reset"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+		form Trip_Schedules_Form
+		{
+			displayname = "Trip Schedules Form"
+			success message = "Test Added Successfully"
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			Trip_ID
+			(
+    			type = text
+				displayname = "Trip ID"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Auto_Number
+			(
+    			type = autonumber
+				displayname = "Auto Number"
+				start index = 30053
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Trip_Schedules_Date
+			(
+    			type = date
+				displayname = "Trip Schedules Date"
+				initial value = "${zoho.currentdate}"
+				alloweddays = 0,1,2,3,4,5,6
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Bus_ID_Bus_Number
+			(
+				type = picklist	
+				displayname = "Bus ID & Bus Number"
+				values  = Bus_Register_Details[Bus_Status == "Active" && Count_For_Schedules == 0].ID
+    			displayformat = [Bus_ID + " - " + Bus_Registration_Number]
+				allow new entries
+				[
+					displayname = "Add New Bus "
+				]
+				sortorder = ascending
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Routes_ID_Route_Location
+			(
+				type = picklist	
+				displayname = "Routes ID & Route Location"
+				values  = Bus_Routes[Route_Status == "Active" && Route_Count_For_Schedule == 0].ID
+    			displayformat = [Route_ID + " - " + Start_Location + " - " + End_Location]
+				allow new entries
+				[
+					displayname = "Add New Routes"
+				]
+				sortorder = ascending
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Tripe_Schedules
+			(
+				type = grid
+				displayname = "Tripe Schedules"
+				values  = Trip_Schedules_Ex_sub.ID
+	 			row = 2
+	 			column = 1   
+				width = medium
+			)
+			Section1
+			(
+				type = section
+				displayname = "Section"
+	 			row = 3
+	 			column = 0   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					Schedule
+					(
+   						type = submit
+   						displayname = "Schedule"
+					)
+					reset
+					(
+   						type = reset
+   						displayname = "Reset"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+		form Upload_important_certificate_for_employees
+		{
+			displayname = "Upload important certificate for employees"
+			success message = "Data Added Successfully!"
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			Medical_Fitness_Certificate
+			(
+    			type = upload file
+				displayname = "Medical & Fitness Certificate"
+				browse = local_drive, google_docs, zoho_docs
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Proof_of_experience
+			(
+    			type = upload file
+				displayname = "Proof of experience"
+				browse = local_drive, google_docs, zoho_docs
+	 			row = 1
+	 			column = 2   
+				width = medium
+			)
+			Criminal_Record_Police_Verification
+			(
+    			type = upload file
+				displayname = "Criminal Record / Police Verification"
+				browse = local_drive, google_docs, zoho_docs
+	 			row = 1
+	 			column = 3   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+	}
+	reports
+	{
+		default list Bus_Types_Master_Report
+		{
+			displayName = "Bus Types Master Report"
+			show all rows from Bus_Types_Master    
+			(
+				Bus_Type as "Bus Type"
+			)
+		}
+		default list All_Bus_Brand_Names
+		{
+			displayName = "All Bus Brand Names"
+			show all rows from Bus_Brand_Name    
+			(
+				Brand_Name as "Brand Name"
+			)
+		}
+		default custom All_Bus_Register_Details
+		{
+			displayName = "All Bus Register Details"
+			show all rows from Bus_Register_Details    
+			(
+				Bus_ID as "Bus ID"
+				Auto_Number as "Auto Number"
+				Bus_Type as "Bus Type"
+				Brand_Name as "Brand Name"
+				Seating_Capacity as "Seating Capacity"
+				Bus_Status as "Bus Status"
+				Bus_Registration_Number as "Bus Registration Number"
+				Uplode_RC_Book as "Uplode RC Book"
+				Count_For_Schedules as "Count For Schedules"
+				custom action "Active"
+				(
+	  			workflow = Acitve_Status_Change
+				show action in edit record menu = true
+				column header = "Active"
+				condition = (Bus_Status == "Under Maintenance")
+				)
+				custom action "Under Maintenance"
+				(
+	  			workflow = Under_Maintenance
+				show action in edit record menu = true
+				column header = "Under Maintenance"
+				condition = (Bus_Status == "Active")
+				)
+			)
+		}
+		default custom Role_Based_Salary_Details_Report
+		{
+			displayName = "Role Based Salary Details Report"
+			show all rows from Role_Based_Salary_Details    
+			(
+				Role as "Role "
+				Salary
+				ID
+			)
+			customlayouts
+			(
+				template
+	 			(
+	 	  			displayname="Custom Layout 1"
+	 	  			content="<panel  \n >\n	<pr \n			width='fill'\n		height='fill'\n>\n	<pc \n		padding = '20px'\n	bgColor = '#FFFFFF'\n\n		width = '100%'\n		hAlign = 'left'\n		vAlign = 'middle'\n>\n	<pr \n			width='fill'\n		height='fill'\n>\n	<pc \n		padding = '0px'\n	bgColor = 'transparent'\n        bgColorType = 'noFill'\n\n		width = '10%'\n		hAlign = 'left'\n		vAlign = 'middle'\n>\n	<pr \n			width='auto'\n		height='auto'\n>\n	<pc \n	\n>\n	<image  \n	\n	color = '#FF6060'\n	type = 'icon'\n	value = 'ui-1-home-simple'\n	size = '24px'\n	cornerRadius = '0px'\n	iconType = 'solid'\n/>\n</pc>\n</pr>\n</pc><pc \n		paddingTop = '0px'\n	paddingLeft = '20px'\n	paddingRight = '0px'\n	paddingBottom = '0px'\n	bgColor = 'transparent'\n        bgColorType = 'noFill'\n\n		width = '90%'\n		hAlign = 'right'\n		vAlign = 'middle'\n>\n	<pr \n			width='auto'\n		height='auto'\n>\n	<pc \n	\n>\n	<text \n\n	color = '#FF6060'\n	size = '16px'\n	type = 'field'\n\n\n    lineHeight = '22'\n    numOfLines = '1'\n\n\n\n\n\n	  value = 'Role'\n>\n</text>\n\n</pc>\n</pr>\n</pc>\n</pr><pr \n			width='fill'\n		height='fill'\n>\n	<pc \n		padding = '0px'\n	bgColor = 'transparent'\n        bgColorType = 'noFill'\n\n		width = '100%'\n		hAlign = 'left'\n		vAlign = 'middle'\n>\n	<pr \n			width='auto'\n		height='auto'\n>\n	<pc \n		padding = '0px'\n\n		hAlign = 'left'\n>\n	<pr \n	>\n	<pc \n	\n>\n	<text \n\n	marginBottom = '6px'\n	marginTop = '12px'\n	color = '#000000'\n	size = '20px'\n	bold = 'true' \n	type = 'field'\n\n\n    lineHeight = '28'\n    numOfLines = '1'\n\n\n\n\n\n	  value = 'Salary'\n>\n</text>\n\n</pc>\n</pr><pr \n	>\n	<pc \n	\n>\n	<text \n\n	margin = '0px'\n	color = '#111111'\n	size = '15px'\n	type = 'field'\n\n\n    lineHeight = '21'\n    numOfLines = '1'\n\n\n\n\n\n	  value = 'None'\n>\n</text>\n\n</pc>\n</pr>\n</pc>\n</pr>\n</pc>\n</pr>\n</pc>\n</pr>\n</panel>"
+	    		)
+			)
+		}
+		default custom All_Employee_Details
+		{
+			displayName = "All Employee Details"
+			show all rows from Employee_Details    
+			(
+				Staff_ID as "Staff ID"
+				Name 
+	 			(
+	      			displayformat = [first_name+""+prefix+""+last_name+""+suffix]
+	 			)
+				Role
+				Phone_Number1 as "Phone Number"
+				(
+					displayformat = plainnumber 
+					linktodial = enable
+				)
+				Address 
+	 			(
+	      			displayformat = [address_line_1+""+address_line_2+""+district_city+""+state_province+""+postal_Code+""+country]
+	      			enable = Link_to_Map,Show_As_Text
+	 			)
+				Joing_Date as "Joing Date"
+				Status
+				Salary
+				Date_of_Birth as "Date of Birth"
+				Status1
+				Email
+				Uplode_Driving_Licence as "Uplode Driving Licence"
+				Driving_Licence_Number as "Driving Licence Number"
+				Uplode_ID_Proof as "Uplode ID Proof"
+				Present_Status as "Present Status"
+				Employee_Image as "Employee Image"
+				Check_In_OR_Check_Out_Count as "Check In OR Check Out Count"
+			)
+			customlayouts
+			(
+				template
+	 			(
+	 	  			displayname="Custom Layout 1"
+	 	  			content="<panel  \n >\n	<pr \n			width='fill'\n		height='fill'\n>\n	<pc \n		padding = '20px'\n	bgColor = '#FFFFFF'\n\n		width = '100%'\n		hAlign = 'left'\n		vAlign = 'middle'\n>\n	<pr \n			width='fill'\n		height='fill'\n>\n	<pc \n		padding = '0px'\n	bgColor = 'transparent'\n        bgColorType = 'noFill'\n\n		width = '10%'\n		hAlign = 'left'\n		vAlign = 'middle'\n>\n	<pr \n			width='auto'\n		height='auto'\n>\n	<pc \n	\n>\n	<image  \n	\n	color = '#FF6060'\n	type = 'icon'\n	value = 'ui-1-home-simple'\n	size = '24px'\n	cornerRadius = '0px'\n	iconType = 'solid'\n/>\n</pc>\n</pr>\n</pc><pc \n		paddingTop = '0px'\n	paddingLeft = '20px'\n	paddingRight = '0px'\n	paddingBottom = '0px'\n	bgColor = 'transparent'\n        bgColorType = 'noFill'\n\n		width = '90%'\n		hAlign = 'right'\n		vAlign = 'middle'\n>\n	<pr \n			width='auto'\n		height='auto'\n>\n	<pc \n	\n>\n	<text \n\n	color = '#FF6060'\n	size = '16px'\n	type = 'field'\n\n\n    lineHeight = '22'\n    numOfLines = '1'\n\n\n\n\n\n	  value = 'Name'\n>\n</text>\n\n</pc>\n</pr>\n</pc>\n</pr><pr \n			width='fill'\n		height='fill'\n>\n	<pc \n		padding = '0px'\n	bgColor = 'transparent'\n        bgColorType = 'noFill'\n\n		width = '100%'\n		hAlign = 'left'\n		vAlign = 'middle'\n>\n	<pr \n			width='auto'\n		height='auto'\n>\n	<pc \n		padding = '0px'\n\n		hAlign = 'left'\n>\n	<pr \n	>\n	<pc \n	\n>\n	<text \n\n	marginBottom = '6px'\n	marginTop = '12px'\n	color = '#000000'\n	size = '20px'\n	bold = 'true' \n	type = 'field'\n\n\n    lineHeight = '28'\n    numOfLines = '1'\n\n\n\n\n\n	  value = 'Driving_Licence_Number'\n>\n</text>\n\n</pc>\n</pr><pr \n	>\n	<pc \n	\n>\n	<text \n\n	margin = '0px'\n	color = '#111111'\n	size = '15px'\n	type = 'field'\n\n\n    lineHeight = '21'\n    numOfLines = '3'\n\n\n\n\n\n	  value = 'Address'\n>\n</text>\n\n</pc>\n</pr>\n</pc>\n</pr>\n</pc>\n</pr>\n</pc>\n</pr>\n</panel>"
+	    		)
+			)
+		}
+		default custom All_Bus_Routes
+		{
+			displayName = "All Bus Routes"
+			show all rows from Bus_Routes    
+			(
+				Route_ID as "Route ID"
+				Auto_Number as "Auto Number"
+				Start_Location as "Start Location"
+				End_Location as "End Location"
+				Route_Status as "Route Status"
+				Route_Count_For_Schedule as "Route Count For Schedule"
+				custom action "Active"
+				(
+	  			workflow = Status_Change1
+				show action in view header = true
+				show action in edit record menu = true
+				column header = "Active"
+				condition = (Route_Status == "in Active")
+				)
+				custom action " In Active"
+				(
+	  			workflow = Status_Change2
+				show action in view header = true
+				show action in edit record menu = true
+				column header = " In Active"
+				condition = (Route_Status == "Active")
+				)
+			)
+		}
+		default list All_Trip_Schedules_Reports
+		{
+			displayName = "All Trip Schedules_Reports"
+			show all rows from Trip_Schedules_Ex_sub    
+			(
+				Trip_Date as "Trip Date"
+				Trip_Status as "Trip Status"
+				Trip_Day as "Trip Day"
+				Driver_ID as "Driver ID "
+				Conductor_ID as "Conductor ID"
+				Cleaner_ID as "Cleaner ID"
+				Driver_Name as "Driver Name"
+				Conductor_Name as "Conductor Name"
+				Cleaner_Name as "Cleaner Name"
+				Bus_Number as "Bus Number"
+				custom action "Change Staff"
+				(
+	  			workflow = Staff_change
+				show action in edit record menu = true
+				column header = "Change Staff"
+				condition = (Driver_ID == null || Cleaner_ID == null || Conductor_ID == null)
+				)
+				custom action "Cancel Trip"
+				(
+	  			workflow = Cancel_Schedules
+				show action in edit record menu = true
+				column header = "Cancel Trip"
+				condition = (Trip_Status == "Scheduled")
+				)
+				Drive_Role as "Role"
+				Conductor_Role as "Role"
+				Cleaner_Role as "Role"
+			)
+			group by
+			(
+				Bus_Number ascending
+			)
+			conditional formatting
+			(
+				"New Formatting"
+				{
+				condition = (Trip_Status == "Cancelled")
+				fields = [Trip_Status]
+				format = "font-weight:bold;text-decoration:underline line-through;color:#ef1616;background-color:#ffffff;"
+				}
+			)
+		}
+		default custom Check_in_Check_out_Report
+		{
+			displayName = "Check in & Check out Report"
+			show all rows from Check_in_Check_out    
+			(
+				Role
+				status
+				Check_In_Date_Time as "Check In Date-Time"
+				Check_in_Check_out_ID as "Check in & Check out ID"
+				Staff_ID as "Staff ID"
+				Staff_Name  as "Staff Name"
+	 			(
+	      			displayformat = [first_name+""+prefix+""+last_name+""+suffix]
+	 			)
+				Check_Out_Date_Time as "Check Out Date-Time"
+			)
+			customlayouts
+			(
+				template
+	 			(
+	 	  			displayname="Custom Layout 1"
+	 	  			content="<panel  \n >\n	<pr \n			width='fill'\n		height='fill'\n>\n	<pc \n		padding = '17px'\n	bgColor = '#FFFFFF'\n\n		width = '100%'\n		hAlign = 'center'\n		vAlign = 'middle'\n>\n	<pr \n			width='auto'\n		height='auto'\n>\n	<pc \n	\n>\n	\n</pc>\n</pr>\n</pc>\n</pr>\n</panel>"
+	    		)
+				template
+	 			(
+	 	  			displayname="Custom Layout 2"
+	 	  			content="<panel  \n >\n	<pr \n			width='fill'\n		height='fill'\n>\n	<pc \n		padding = '20px'\n	bgColor = '#FFFFFF'\n\n		width = '100%'\n		hAlign = 'left'\n		vAlign = 'top'\n>\n	<pr \n			width='fill'\n		height='fill'\n>\n	<pc \n		padding = '0px'\n\n		width = '100%'\n		hAlign = 'left'\n		vAlign = 'top'\n>\n	<pr \n			width='auto'\n		height='auto'\n>\n	<pc \n		padding = '0px'\n\n		hAlign = 'left'\n		vAlign = 'top'\n>\n	<pr \n	>\n	<pc \n	\n>\n	<image  \n	\n	color = '#10BE4B'\n	type = 'icon'\n	value = 'ui-1-calendar-grid-58'\n	size = '16px'\n	cornerRadius = '0px'\n	iconType = 'solid'\n/>\n</pc><pc \n	\n>\n	<text \n\n	marginLeft = '10px'\n	marginBottom = '0px'\n	marginTop = '2px'\n	color = '#10BE4B'\n	size = '16px'\n	bold = 'true' \n	type = 'field'\n\n\n    lineHeight = '22'\n    numOfLines = '1'\n\n\n\n\n\n	  value = 'status'\n>\n</text>\n\n</pc>\n</pr><pr \n	>\n	<pc \n	\n>\n	<text \n\n	marginLeft = '0px'\n	marginRight = '0px' \n	marginBottom = '0px'\n	marginTop = '15px'\n	color = '#132437'\n	size = '15px'\n	type = 'field'\n\n\n    lineHeight = '21'\n    numOfLines = '1'\n\n\n\n\n\n	  value = 'Staff_ID'\n>\n</text>\n\n</pc>\n</pr><pr \n	>\n	<pc \n	\n>\n	<text \n\n	marginLeft = '0px'\n	marginRight = '0px' \n	marginBottom = '0px'\n	marginTop = '6px'\n	color = '#132437'\n	size = '20px'\n	bold = 'true' \n	type = 'field'\n\n\n    lineHeight = '28'\n    numOfLines = '1'\n\n\n\n\n\n	  value = 'Staff_Name'\n>\n</text>\n\n</pc>\n</pr>\n</pc>\n</pr>\n</pc>\n</pr><pr \n			width='fill'\n		height='fill'\n>\n	<pc \n		paddingTop = '15px'\n	paddingLeft = '0px'\n	paddingRight = '10px'\n	paddingBottom = '0px'\n	bgColor = 'transparent'\n        bgColorType = 'noFill'\n\n		width = '50%'\n		hAlign = 'left'\n		vAlign = 'top'\n>\n	<pr \n			width='auto'\n		height='auto'\n>\n	<pc \n	\n		width = '100%'\n		hAlign = 'left'\n		vAlign = 'top'\n>\n	<text \n\n	marginTop = '0px'\n	color = '#168868'\n	size = '15px'\n	type = 'field'\n\n\n    lineHeight = '20'\n    numOfLines = '1'\n\n\n\n\n\n	  value = 'Role'\n>\n</text>\n\n</pc>\n</pr>\n</pc><pc \n		paddingTop = '15px'\n	paddingLeft = '10px'\n	paddingRight = '0px'\n	paddingBottom = '0px'\n	bgColor = 'transparent'\n        bgColorType = 'noFill'\n\n		width = '50%'\n		hAlign = 'right'\n		vAlign = 'top'\n>\n	<pr \n			width='auto'\n		height='auto'\n>\n	<pc \n	\n		width = '100%'\n		hAlign = 'right'\n		vAlign = 'top'\n>\n	<text \n\n	marginTop = '0px'\n	color = '#168868'\n	size = '15px'\n	type = 'field'\n\n\n    lineHeight = '20'\n    numOfLines = '1'\n\n\n\n\n\n	  value = 'Check_In_Date_Time'\n>\n</text>\n\n</pc>\n</pr>\n</pc>\n</pr>\n</pc>\n</pr>\n</panel>"
+	    		)
+			)
+		}
+		list report_for_pages
+		{
+			displayName = "report for pages"
+			show all rows from Employee_Details  [Present_Status == "Present"]  
+			(
+				Staff_ID as "Staff ID"
+				Name 
+	 			(
+	      			displayformat = [first_name+""+prefix+""+last_name+""+suffix]
+	 			)
+				Date_of_Birth as "Date of Birth"
+				Role
+				Salary
+				Phone_Number1 as "Phone Number"
+				(
+					displayformat = plainnumber 
+					linktodial = enable
+				)
+				Address 
+	 			(
+	      			displayformat = [address_line_1+""+address_line_2+""+district_city+""+state_province+""+postal_Code+""+country]
+	      			enable = Link_to_Map,Show_As_Text
+	 			)
+				Joing_Date as "Joing Date"
+				Status
+				custom action "Check in"
+				(
+	  			workflow = check_in
+				show action in edit record menu = true
+				column header = "Check in"
+				condition = (Status1 == "0")
+				confirmation before execution
+				(
+					message for individual record = "Execute the Check in action for this record?"
+					confirm button text = "Yes"		
+					cancel button text = "No"
+				)
+				)
+				custom action "Check out"
+				(
+	  			workflow = check_out
+				show action in edit record menu = true
+				column header = "Check out"
+				condition = (Status1 == "1")
+				confirmation before execution
+				(
+					message for individual record = "Execute the Check out action for this record?"
+					confirm button text = "Yes"		
+					cancel button text = "No"
+				)
+				)
+				Status1
+			)
+		}
+		default list Trip_Schedules_Repore
+		{
+			displayName = "Trip Schedules Report"
+			show all rows from Trip_Schedules_Form    
+			(
+				Trip_Schedules_Date as "Trip Schedules Date"
+				Bus_ID_Bus_Number as "Bus ID & Bus Number"
+				Routes_ID_Route_Location as "Routes ID & Route Location"
+				Trip_ID as "Trip ID"
+				Auto_Number as "Auto Number"
+			)
+		}
+		default summary All_Empolyee_Shift_Allotments
+		{
+			displayName = "All Empolyee Shift Allotments"
+			show all rows from Empolyee_Shift_Allotment    
+			(
+				Driver_ID as "Driver ID"
+				Shift_Days as "Shift Days"
+				Conductor_ID as "Conductor ID"
+				Cleaner_ID as "Cleaner ID"
+				Bus_ID_Bus_Registration_Number as "Bus ID & Bus Registration Number"
+				Driver_Name as "Driver Name"
+				Conductor_Name as "Conductor Name"
+				Cleaner_Name as "Cleaner Name"
+			)
+			options
+			(
+				display rows = 10
+				display records per row = 2
+			)
+		}
+		default custom All_Leave_Requests
+		{
+			displayName = "All Leave Requests"
+			show all rows from Leave_Request    
+			(
+				Apply_Date as "Apply Date"
+				Employee_ID_Employee_Name as "Employee ID& Employee Name"
+				Role
+				Leave_Start_Date as "Leave Start Date"
+				Leave_End_Date as "Leave End Date"
+				No_of_Days_Leave as "No of Days Leave"
+				Leave_Status as "Leave Status"
+				Bus_Number as "Bus Number"
+				Employee_ID_Employee_Name.Employee_Image as "Employee Image"
+				Employee_ID_Employee_Name.Staff_ID as "Staff ID"
+				Employee_ID_Employee_Name.Email
+				Employee_ID_Employee_Name.Phone_Number1 as "Phone Number"
+				(
+					displayformat = plainnumber 
+					linktodial = enable
+				)
+			)
+		}
+		default custom Active_Staff_Registration_Report
+		{
+			displayName = "Active Staff Registration Report"
+			show all rows from Active_Staff_Registratione    
+			(
+				Active_Staff_ID as "Active Staff ID"
+				Auto_Number as "Auto Number"
+				Name 
+	 			(
+	      			displayformat = [first_name+""+prefix+""+last_name+""+suffix]
+	 			)
+				Role
+				Per_Day_Salary as "Per Day Salary"
+				Phone_Number as "Phone Number"
+				(
+					displayformat = plainnumber 
+					linktodial = enable
+				)
+				Address 
+	 			(
+	      			displayformat = [address_line_1+""+address_line_2+""+district_city+""+state_province+""+postal_Code+""+country]
+	      			enable = Link_to_Map,Show_As_Text
+	 			)
+				Status
+				Uplode_Driving_Licence as "Uplode Driving Licence"
+				Driving_Licence_Number as "Driving Licence Number"
+			)
+		}
+		default custom All_Active_Staff_Role_Base_Salaries
+		{
+			displayName = "All Active Staff Role Base Salaries"
+			show all rows from Active_Staff_Role_Base_Salary    
+			(
+				Role
+				Salary
+				ID
+			)
+			customlayouts
+			(
+				template
+	 			(
+	 	  			displayname="Custom Layout 1"
+	 	  			content="<panel  \n >\n	<pr \n			width='fill'\n		height='fill'\n>\n	<pc \n		padding = '20px'\n	bgColor = '#FFFFFF'\n\n		width = '100%'\n		hAlign = 'left'\n		vAlign = 'middle'\n>\n	<pr \n			width='fill'\n		height='fill'\n>\n	<pc \n		padding = '0px'\n	bgColor = 'transparent'\n        bgColorType = 'noFill'\n\n		width = '10%'\n		hAlign = 'left'\n		vAlign = 'middle'\n>\n	<pr \n			width='auto'\n		height='auto'\n>\n	<pc \n	\n>\n	<image  \n	\n	color = '#FF6060'\n	type = 'icon'\n	value = 'ui-1-home-simple'\n	size = '24px'\n	cornerRadius = '0px'\n	iconType = 'solid'\n/>\n</pc>\n</pr>\n</pc><pc \n		paddingTop = '0px'\n	paddingLeft = '20px'\n	paddingRight = '0px'\n	paddingBottom = '0px'\n	bgColor = 'transparent'\n        bgColorType = 'noFill'\n\n		width = '90%'\n		hAlign = 'right'\n		vAlign = 'middle'\n>\n	<pr \n			width='auto'\n		height='auto'\n>\n	<pc \n	\n>\n	<text \n\n	color = '#FF6060'\n	size = '16px'\n	type = 'field'\n\n\n    lineHeight = '22'\n    numOfLines = '1'\n\n\n\n\n\n	  value = 'Role'\n>\n</text>\n\n</pc>\n</pr>\n</pc>\n</pr><pr \n			width='fill'\n		height='fill'\n>\n	<pc \n		padding = '0px'\n	bgColor = 'transparent'\n        bgColorType = 'noFill'\n\n		width = '100%'\n		hAlign = 'left'\n		vAlign = 'middle'\n>\n	<pr \n			width='auto'\n		height='auto'\n>\n	<pc \n		padding = '0px'\n\n		hAlign = 'left'\n>\n	<pr \n	>\n	<pc \n	\n>\n	<text \n\n	marginBottom = '6px'\n	marginTop = '12px'\n	color = '#000000'\n	size = '20px'\n	bold = 'true' \n	type = 'field'\n\n\n    lineHeight = '28'\n    numOfLines = '1'\n\n\n\n\n\n	  value = 'Salary'\n>\n</text>\n\n</pc>\n</pr><pr \n	>\n	<pc \n	\n>\n	<text \n\n	margin = '0px'\n	color = '#111111'\n	size = '15px'\n	type = 'field'\n\n\n    lineHeight = '21'\n    numOfLines = '1'\n\n\n\n\n\n	  value = 'None'\n>\n</text>\n\n</pc>\n</pr>\n</pc>\n</pr>\n</pc>\n</pr>\n</pc>\n</pr>\n</panel>"
+	    		)
+			)
+		}
+		default summary All_Employee_Pay_Details
+		{
+			displayName = "All Employee Pay Details"
+			show all rows from Employee_Pay_Details    
+			(
+				Transection_Date_Time as "Transection Date & Time"
+				Employee_Name  as "Employee Name"
+	 			(
+	      			displayformat = [first_name+""+prefix+""+last_name+""+suffix]
+	 			)
+				Role
+				Employee_ID as "Employee ID"
+				Salary
+				Email
+			)
+			options
+			(
+				display rows = 10
+				display records per row = 2
+			)
+		}
+		default list All_Salary_Masters
+		{
+			displayName = "All Salary Masters"
+			show all rows from Salary_Master    
+			(
+				Transection_ID as "Transection ID"
+				Auto_Number as "Auto Number"
+				Status as "Status "
+				count_field as "count"
+			)
+		}
+		default list All_Active_Staffs_Allote
+		{
+			displayName = "All Active Staffs_Allote"
+			show all rows from Active_Staff_Allote    
+			(
+				Active_Staff_ID as "Active Staff ID"
+				Name 
+	 			(
+	      			displayformat = [first_name+""+prefix+""+last_name+""+suffix]
+	 			)
+				Role3 as "Role"
+				Bus_Number as "Bus Number"
+				Date_field as "Date"
+			)
+		}
+		default list Upload_important_certificate_for_employees_Report
+		{
+			displayName = "Upload important certificate for employees Report"
+			show all rows from Upload_important_certificate_for_employees    
+			(
+				Medical_Fitness_Certificate as "Medical & Fitness Certificate"
+				Criminal_Record_Police_Verification as "Criminal Record / Police Verification"
+				Proof_of_experience as "Proof of experience"
+			)
+		}
+		default list All_Resignations
+		{
+			displayName = "All Resignations"
+			show all rows from resignation_form    
+			(
+				Employee_ID as "Employee ID"
+				Name 
+	 			(
+	      			displayformat = [first_name+""+prefix+""+last_name+""+suffix]
+	 			)
+				Role
+				Reason
+				Date_Time as "Date-Time"
+			)
+		}
+		list Trip_Count_For_Employee
+		{
+			displayName = "Trip Count For Employee"
+			show all rows from Trip_Schedules_Ex_sub  [Trip_Date in this month && Trip_Status.contains("Completed")]  
+			(
+				Trip_Date as "Trip Date"
+				Trip_Day as "Trip Day"
+				Bus_Number as "Bus Number"
+				Driver_ID as "Driver ID "
+				Driver_Name as "Driver Name"
+				Drive_Role as "Role"
+				Conductor_ID as "Conductor ID"
+				Conductor_Name as "Conductor Name"
+				Conductor_Role as "Role"
+				Cleaner_ID as "Cleaner ID"
+				Cleaner_Name as "Cleaner Name"
+				Cleaner_Role as "Role"
+				Trip_Status as "Trip Status"
+			)
+		}
+		default list Feed_Back_Form_Report
+		{
+			displayName = "Feed Back Form Report"
+			show all rows from Feed_Back_Form    
+			(
+				Name
+				Email
+				Message
+			)
+		}
+		pivotchart Employee_Roles
+		{ 
+			displayname = "Employee Roles"
+						report properties
+			(
+				records displayed = all_records
+				allow export = false
+				allow drilldown and view underlying data = false
+		
+			)
+
+			based on Autoview_1759475153610_Employee_Details
+				show all rows from Employee_Details
+				(
+			Name 
+ 			(
+ 				first_name as "Name"
+ 				prefix as "Name.Prefix"
+ 				last_name as "Name.Last Name"
+ 				suffix as "Name.Suffix"
+     			displayformat = [first_name+""+prefix+""+last_name+""+suffix]
+ 			)
+			Email 
+			Address 
+ 			(
+ 				address_line_1 as "Address"
+ 				address_line_2 as "Address.Address Line 2"
+ 				district_city as "Address.City / District"
+ 				state_province as "Address.State / Province"
+ 				postal_Code as "Address.Postal Code"
+ 				country as "Address.Country"
+ 				latitude as "Address.latitude"
+ 				longitude as "Address.longitude"
+     			displayformat = [address_line_1+""+address_line_2+""+district_city+""+state_province+""+postal_Code+""+country+""+latitude+""+longitude]
+ 			)
+			Uplode_Driving_Licence  as "Uplode Driving Licence"
+			Driving_Licence_Number  as "Driving Licence Number"
+			Joing_Date  as "Joing Date"
+			Phone_Number1  as "Phone Number"
+			Date_of_Birth  as "Date of Birth"
+			Uplode_ID_Proof  as "Uplode ID Proof"
+			Role 
+			Salary 
+			Staff_ID  as "Staff ID"
+			Status 
+			Status1 
+			Present_Status  as "Present Status"
+			Check_In_OR_Check_Out_Count  as "Check In OR Check Out Count"
+				)
+		}
+		pivotchart Trip_Graph
+		{ 
+			displayname = "Trip Graph"
+						report properties
+			(
+				records displayed = all_records
+				allow export = false
+				allow drilldown and view underlying data = false
+		
+			)
+
+			based on Autoview_1759988145308_Trip_Schedules_Ex_sub
+				show all rows from Trip_Schedules_Ex_sub
+				(
+			Trip_Date  as "Trip Date"
+			Trip_Day  as "Trip Day"
+			Bus_Number  as "Bus Number"
+			Driver_ID  as "Driver ID"
+			Driver_Name  as "Driver Name"
+			Drive_Role  as "Role"
+			Conductor_ID  as "Conductor ID"
+			Conductor_Name  as "Conductor Name"
+			Conductor_Role  as "Role1"
+			Cleaner_ID  as "Cleaner ID"
+			Cleaner_Name  as "Cleaner Name"
+			Cleaner_Role  as "Role2"
+			Trip_Status  as "Trip Status"
+				)
+		}
+	}
+	pages
+	{
+		page Check_in_Check_out_Page
+		{
+			displayname = "Check in & Check out Page"
+			Content="<zml    \t\t\n\t\t\n\t\t\n\t\t\n\t\t\n>\n\t<layout>\n\t<row>\n\t<column\n   \t\t width='100%'\n   \t>\n\t<dsp id='html_snippet' elementName='HTML Snippet'\n bgColor=\"#FFFFFF\" \n>\n\t<![CDATA[htmlpage html_snippet()\ncontent\n&lt;%{\n\t%&gt;\n&lt;div elName=&apos;zc-component&apos; formLinkName=&apos;Copy_of_Check_in_Check_out&apos; params=&apos;zc_Header=false&amp;amp;zc_SuccMsg=Data Added Successfully!&amp;amp;zc_SubmitVal=&amp;amtrue;zc_ResetVal=true&amp;amp;zc_Submit=false&apos;  &gt;Loading Form...&lt;\/div&gt;\n&lt;div elName=&apos;zc-component&apos;name=&quot;karthi&quot; viewLinkName=&apos;report_for_pages&apos; params=&apos;zc_Header=true&amp;zc_Search=false&amp;zc_AddRec=false&amp;zc_MoreAction=false&amp;zc_EditRec=false&amp;zc_EditBulkRec=false&amp;zc_Summary=false&amp;zc_BulkDelete=false&amp;zc_BulkDuplicate=false&amp;zc_Export=false&amp;zc_Print=false&amp;zc_RecSelect=true&apos;&gt;Loading View...&lt;\/div&gt;\n\/\/ &lt;style&gt;\n\/\/ .zc-live-primary-btn,.zc-live-secondary-btn\n\/\/ {\n\/\/ \tdisplay:none;\n\/\/ }\n\/\/ &lt;\/style&gt;\n&lt;%\n\n}%&gt;]]>\n<\/dsp>\n<\/column>\n<\/row>\n<\/layout>\n<\/zml>"
+		}
+		page Owner_Dashboard1
+		{
+			displayname = "Owner Dashboard"
+			Content="<zml    \t\t\n\t\t\n\t\t\n\t\t\n\t\t\n>\n\t<layout>\n\t<row>\n\t<column\n   \t\t width='50%'\n   \t>\n\t<panel elementName='Panel'\n \n >\n\t<pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tpadding = '20px'\n\tbgColor = '#FFFFFF'\n\n\t\twidth = '100%'\n\t\thAlign = 'center'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\tpadding = '5px'\n\n>\n\t<pr \n\t>\n\t<pc \n\t\n>\n\t<text \n\n\tmarginLeft = '0px'\n\tmarginRight = '5px' \n\tmarginBottom = '0px'\n\tmarginTop = '0px'\n\tpadding = '0px'\n\tcolor = '#FF0048'\n\tsize = '36px'\n\tbold = 'true' \n\ttype = 'Form Data'\n\n\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\tcornerRadius = '0px'\n\n\n\tdisplayType = 'actual'\n\tthousandsSeperator = 'LOCALE'\n\tdecimalSeperator = 'DOT'\n\tnumberScale = 'none'\n\n\n\n    borderColor = '#FF0048'\n    borderWidth = '0px'\n\n\t  value = 'thisapp.Employee_Details.ID.count'\n>\n<\/text>\n\n<\/pc><pc \n\t\n>\n\t<image  \n\t\tmargin = '0px'\n\n    borderColor = '#FFFFFF'\n    borderWidth = '0px'\n\tcolor = '#FFFFFF'\n\tbgColor = '#FF0048'\n\twidth = '40px'\n\theight = '40px'\n\ttype = 'icon'\n\tvalue = 'users-2-a-star'\n\tsize = '22px'\n\tcornerRadius = '20px'\n\ticonType = 'solid'\n\/>\n<\/pc>\n<\/pr><pr \n\t>\n\t<pc \n\t\n>\n\t<text \n\n\tmarginLeft = '0px'\n\tmarginRight = '0px' \n\tmarginBottom = '0px'\n\tmarginTop = '5px'\n\tpadding = '0px'\n\tcolor = '#000000'\n\tsize = '20px'\n\tbold = 'true' \n\ttype = 'Text'\n\n\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\tcornerRadius = '0px'\n\n\n\n\n\n    borderColor = '#000000'\n    borderWidth = '0px'\n\n\t  value = 'Total Employees'\n>\n<\/text>\n\n<\/pc>\n<\/pr>\n<\/pc>\n<\/pr>\n<\/pc>\n<\/pr>\n<\/panel>\n<\/column><column\n   \t\t width='50%'\n   \t>\n\t<chart \n\telementName='Chart'\n\n\ttype = 'Pie'\n\tbgColor = '#FFFFFF'\n\ttheme = 'theme2'\n\tlegendPos = 'center.top'\n\theightType = 'auto'\n\theightValue = '300px'\n\tappLinkName = 'thisapp'\n\tformLinkName = 'Employee_Details'\n\txfield = 'Role.Role'\n\tyfields = 'count:Role.Role'\n\/>\n\n<\/column>\n<\/row><row>\n\t<column\n   \t\t width='50%'\n   \t>\n\t<panel elementName='Panel 1'\n \n >\n\t<pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tpadding = '20px'\n\tbgColor = '#FFFFFF'\n\n\t\twidth = '100%'\n\t\thAlign = 'center'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\tpadding = '5px'\n\n>\n\t<pr \n\t>\n\t<pc \n\t\n>\n\t<image  \n\t\tmargin = '0px'\n\n    borderColor = '#FFFFFF'\n    borderWidth = '0px'\n\tcolor = '#FFFFFF'\n\tbgColor = '#0ABB51'\n\twidth = '52px'\n\theight = '52px'\n\ttype = 'icon'\n\tvalue = 'users-2-b-check'\n\tsize = '32px'\n\tcornerRadius = '26px'\n\ticonType = 'outline'\n\/>\n<\/pc>\n<\/pr><pr \n\t>\n\t<pc \n\t\n>\n\t<text \n\n\tmarginLeft = '0px'\n\tmarginRight = '0px' \n\tmarginBottom = '0px'\n\tmarginTop = '5px'\n\tpadding = '0px'\n\tcolor = '#333333'\n\tsize = '16px'\n\ttype = 'Text'\n\n\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\tcornerRadius = '0px'\n\n\n\n\n\n    borderColor = '#333333'\n    borderWidth = '0px'\n\n\t  value = 'Today Check IN'\n>\n<\/text>\n\n<\/pc>\n<\/pr><pr \n\t>\n\t<pc \n\t\n>\n\t<text \n\n\tmarginLeft = '0px'\n\tmarginRight = '0px' \n\tmarginBottom = '0px'\n\tmarginTop = '2px'\n\tpadding = '0px'\n\tcolor = '#0ABB51'\n\tsize = '36px'\n\tbold = 'true' \n\ttype = 'Form Data'\n\n\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\tcornerRadius = '0px'\n\n\n\tdisplayType = 'actual'\n\tthousandsSeperator = 'LOCALE'\n\tdecimalSeperator = 'DOT'\n\tnumberScale = 'none'\n\n\n\n    borderColor = '#0ABB51'\n    borderWidth = '0px'\n\n\t\tcriteria = 'Check_In_Date_Time == zoho.currentdate'\n\t  value = 'thisapp.Check_in_Check_out.ID.count'\n>\n<\/text>\n\n<\/pc>\n<\/pr>\n<\/pc>\n<\/pr>\n<\/pc>\n<\/pr>\n<\/panel>\n<\/column><column\n   \t\t width='50%'\n   \t>\n\t<panel elementName='Panel 2'\n \n >\n\t<pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tpadding = '20px'\n\tbgColor = '#FFFFFF'\n\n\t\twidth = '100%'\n\t\thAlign = 'center'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\tpadding = '5px'\n\n>\n\t<pr \n\t>\n\t<pc \n\t\n>\n\t<image  \n\t\tmargin = '0px'\n\n    borderColor = '#FFFFFF'\n    borderWidth = '0px'\n\tcolor = '#FFFFFF'\n\tbgColor = '#0ABB51'\n\twidth = '52px'\n\theight = '52px'\n\ttype = 'icon'\n\tvalue = 'transportation-train'\n\tsize = '32px'\n\tcornerRadius = '26px'\n\ticonType = 'outline'\n\/>\n<\/pc>\n<\/pr><pr \n\t>\n\t<pc \n\t\n>\n\t<text \n\n\tmarginLeft = '0px'\n\tmarginRight = '0px' \n\tmarginBottom = '0px'\n\tmarginTop = '3px'\n\tpadding = '0px'\n\tcolor = '#0ABB51'\n\tsize = '36px'\n\tbold = 'true' \n\ttype = 'Form Data'\n\n\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\tcornerRadius = '0px'\n\n\n\tdisplayType = 'actual'\n\tthousandsSeperator = 'LOCALE'\n\tdecimalSeperator = 'DOT'\n\tnumberScale = 'none'\n\n\n\n    borderColor = '#0ABB51'\n    borderWidth = '0px'\n\n\t  value = 'thisapp.Bus_Register_Details.ID.count'\n>\n<\/text>\n\n<\/pc>\n<\/pr><pr \n\t>\n\t<pc \n\t\n>\n\t<text \n\n\tmarginLeft = '0px'\n\tmarginRight = '0px' \n\tmarginBottom = '0px'\n\tmarginTop = '3px'\n\tpadding = '0px'\n\tcolor = '#333333'\n\tsize = '16px'\n\ttype = 'Text'\n\n\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\tcornerRadius = '0px'\n\n\n\n\n\n    borderColor = '#333333'\n    borderWidth = '0px'\n\n\t  value = 'Total No of Bus'\n>\n<\/text>\n\n<\/pc>\n<\/pr>\n<\/pc>\n<\/pr>\n<\/pc>\n<\/pr>\n<\/panel>\n<\/column>\n<\/row><row>\n\t<column\n   \t\t width='100%'\n   \t>\n\t<panel elementName='Panel 3'\n \n >\n\t<pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tbgColor = '#FFFFFF'\n\n\t\twidth = '100%'\n>\n\t<pr \n\t\t\twidth='fill'\n\t\theight='50px'\n>\n\t<pc \n\t\tbgColor = '#FAFAFA'\n\n\t\twidth = '100%'\n\t\thAlign = 'center'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\n>\n\t<text \n\n\tmarginLeft = '20px'\n\tmarginRight = '20px' \n\tmarginBottom = '0px'\n\tmarginTop = '0px'\n\tpadding = '0px'\n\tcolor = '#2D2D2D'\n\tsize = '16px'\n\ttype = 'Text'\n\n\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\tcornerRadius = '0px'\n\n\n\n\n\n    borderColor = '#2D2D2D'\n    borderWidth = '0px'\n\n\t  value = 'No of Bus Under Maintance'\n>\n<\/text>\n\n<\/pc>\n<\/pr>\n<\/pc>\n<\/pr><pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tpadding = '20px'\n\tbgColor = '#FFFFFF'\n\n\t\twidth = '100%'\n\t\thAlign = 'center'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\tpadding = '5px'\n\n>\n\t<pr \n\t>\n\t<pc \n\t\n>\n\t<image  \n\t\tmargin = '0px'\n\n    borderColor = '#FFFFFF'\n    borderWidth = '0px'\n\tcolor = '#FFFFFF'\n\tbgColor = '#2A70E7'\n\twidth = '52px'\n\theight = '52px'\n\ttype = 'icon'\n\tvalue = 'transportation-train'\n\tsize = '32px'\n\tcornerRadius = '26px'\n\ticonType = 'solid'\n\/>\n<\/pc>\n<\/pr><pr \n\t>\n\t<pc \n\t\n>\n\t<text \n\n\tmarginLeft = '0px'\n\tmarginRight = '0px' \n\tmarginBottom = '0px'\n\tmarginTop = '5px'\n\tpadding = '0px'\n\tcolor = '#2A70E7'\n\tsize = '33px'\n\tbold = 'true' \n\ttype = 'Form Data'\n\n\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\tcornerRadius = '0px'\n\n\n\tdisplayType = 'actual'\n\tthousandsSeperator = 'LOCALE'\n\tdecimalSeperator = 'DOT'\n\tnumberScale = 'none'\n\n\n\n    borderColor = '#2A70E7'\n    borderWidth = '0px'\n\n\t\tcriteria = 'Bus_Status == &quot;Under Maintenance&quot;'\n\t  value = 'thisapp.Bus_Register_Details.ID.count'\n>\n<\/text>\n\n<\/pc>\n<\/pr>\n<\/pc>\n<\/pr>\n<\/pc>\n<\/pr>\n<\/pc>\n<\/pr>\n<\/panel>\n<\/column>\n<\/row>\n<\/layout>\n<\/zml>"
+		}
+		page Owner_Dashboard
+		{
+			displayname = "Owner Dashboard"
+			Content="<zml    \t\t\n\t\t\n\t\t\n\t\t\twebDeviceConfig='{\"layout\":{\"displayType\":\"plain\",\"design\":\"fluid\",\"style\":\"padding-right:0px;padding-top:0px;padding-bottom:0px;padding-left:0px;\"}}'\n\t\t\n\t\t\n>\n\t<layout>\n\t<row>\n\t<column\n   \t\t width='100%'\n   \t>\n\t<row>\n\t<column\n   \t\t width='25%'\n   \t>\n\t<panel elementName='Panel'\n \n >\n\t<pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\n\t\twidth = '100%'\n>\n\t<pr \n\t\t\twidth='fill'\n\t\theight='50px'\n>\n\t<pc \n\t\tpadding = '0px'\n\tbgColor = 'theme:35'\n\n    borderColor = '#444444'\n    borderWidth = '0px'\n\t\twidth = '100%'\n\t\thAlign = 'center'\n\t\tvAlign = 'middle'\n    \tcornerRadius = '0px'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\n>\n\t<text \n\n\tmarginLeft = '20px'\n\tmarginRight = '20px' \n\tmarginBottom = '0px'\n\tmarginTop = '0px'\n\tpadding = '0px'\n\tcolor = '#000000'\n\tsize = '16px'\n\tbold = 'true' \n\tfontFamily = 'roboto-regular' \n\ttype = 'Text'\n\n\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\tcornerRadius = '0px'\n\n\n\n\n\n    borderColor = '#2D2D2D'\n    borderWidth = '0px'\n\n\t  value = 'Total Employee'\n>\n<\/text>\n\n<\/pc>\n<\/pr>\n<\/pc>\n<\/pr><pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tpadding = '20px'\n\tbgColor = '#FFFFFF'\n\n    action = 'OpenReport'\n\t\tcomponentLinkName = 'All_Employee_Details'\n\t\ttarget = 'popup'\n    borderColor = '#444444'\n    borderWidth = '0px'\n\t\twidth = '100%'\n\t\thAlign = 'center'\n\t\tvAlign = 'middle'\n    \tcornerRadius = '0px'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\tpadding = '5px'\n\n>\n\t<pr \n\t>\n\t<pc \n\t\n>\n\t<image  \n\t\tmargin = '0px'\n\n    borderColor = '#F3482C'\n    borderWidth = '0px'\n\tcolor = '#000000'\n\tbgColor = '#FFFFFF'\n\twidth = '52px'\n\theight = '52px'\n\ttype = 'icon'\n\tvalue = 'users-2-meeting'\n\tsize = '28px'\n\tcornerRadius = '0px'\n\ticonType = 'outline'\n\/>\n<\/pc>\n<\/pr><pr \n\t>\n\t<pc \n\t\n>\n\t<text \n\n\tmarginLeft = '0px'\n\tmarginRight = '0px' \n\tmarginBottom = '0px'\n\tmarginTop = '5px'\n\tpadding = '0px'\n\tcolor = '#000000'\n\tsize = '33px'\n\tbold = 'true' \n\ttype = 'Form Data'\n\n\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\tcornerRadius = '0px'\n\n\n\tdisplayType = 'actual'\n\tthousandsSeperator = 'LOCALE'\n\tdecimalSeperator = 'DOT'\n\tnumberScale = 'none'\n\n\n\n    borderColor = '#F3482C'\n    borderWidth = '0px'\n\n\t  value = 'thisapp.Employee_Details.ID.count'\n>\n<\/text>\n\n<\/pc>\n<\/pr>\n<\/pc>\n<\/pr>\n<\/pc>\n<\/pr>\n<\/pc>\n<\/pr>\n<\/panel>\n<\/column><column\n   \t\t width='25%'\n   \t>\n\t<panel elementName='Panel 1'\n \n >\n\t<pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\n\t\twidth = '100%'\n>\n\t<pr \n\t\t\twidth='fill'\n\t\theight='50px'\n>\n\t<pc \n\t\tpadding = '0px'\n\tbgColor = 'theme:35'\n\n    borderColor = '#444444'\n    borderWidth = '0px'\n\t\twidth = '100%'\n\t\thAlign = 'center'\n\t\tvAlign = 'middle'\n    \tcornerRadius = '0px'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\n>\n\t<text \n\n\tmarginLeft = '20px'\n\tmarginRight = '20px' \n\tmarginBottom = '0px'\n\tmarginTop = '0px'\n\tpadding = '0px'\n\tcolor = '#2D2D2D'\n\tsize = '16px'\n\tbold = 'true' \n\tfontFamily = 'roboto-regular' \n\ttype = 'Text'\n\n\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\tcornerRadius = '0px'\n\n\n\n\n\n    borderColor = '#2D2D2D'\n    borderWidth = '0px'\n\n\t  value = 'Total Number Bus'\n>\n<\/text>\n\n<\/pc>\n<\/pr>\n<\/pc>\n<\/pr><pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tpadding = '20px'\n\tbgColor = '#FFFFFF'\n\n    action = 'OpenReport'\n\t\tcomponentLinkName = 'All_Bus_Register_Details'\n\t\ttarget = 'popup'\n    borderColor = '#444444'\n    borderWidth = '0px'\n\t\twidth = '100%'\n\t\thAlign = 'center'\n\t\tvAlign = 'middle'\n    \tcornerRadius = '0px'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\tpadding = '5px'\n\n>\n\t<pr \n\t>\n\t<pc \n\t\n>\n\t<image  \n\t\tmargin = '0px'\n\n    borderColor = '#4C7DE8'\n    borderWidth = '0px'\n\tcolor = '#000000'\n\tbgColor = '#FFFFFF'\n\twidth = '52px'\n\theight = '52px'\n\ttype = 'icon'\n\tvalue = 'transportation-bus-front-12'\n\tsize = '32px'\n\tcornerRadius = '0px'\n\ticonType = 'outline'\n\/>\n<\/pc>\n<\/pr><pr \n\t>\n\t<pc \n\t\n>\n\t<text \n\n\tmarginLeft = '0px'\n\tmarginRight = '0px' \n\tmarginBottom = '0px'\n\tmarginTop = '5px'\n\tpadding = '0px'\n\tcolor = '#000000'\n\tsize = '33px'\n\tbold = 'true' \n\ttype = 'Form Data'\n\n\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\tcornerRadius = '0px'\n\n\n\tdisplayType = 'actual'\n\tthousandsSeperator = 'LOCALE'\n\tdecimalSeperator = 'DOT'\n\tnumberScale = 'none'\n\n\n\n    borderColor = '#2A70E7'\n    borderWidth = '0px'\n\n\t  value = 'thisapp.Bus_Register_Details.ID.count'\n>\n<\/text>\n\n<\/pc>\n<\/pr>\n<\/pc>\n<\/pr>\n<\/pc>\n<\/pr>\n<\/pc>\n<\/pr>\n<\/panel>\n<\/column><column\n   \t\t width='25%'\n   \t>\n\t<panel elementName='Panel 2'\n \n >\n\t<pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\n\t\twidth = '100%'\n>\n\t<pr \n\t\t\twidth='fill'\n\t\theight='50px'\n>\n\t<pc \n\t\tpadding = '0px'\n\tbgColor = 'theme:35'\n\n    borderColor = '#444444'\n    borderWidth = '0px'\n\t\twidth = '100%'\n\t\thAlign = 'center'\n\t\tvAlign = 'middle'\n    \tcornerRadius = '0px'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\n>\n\t<text \n\n\tmarginLeft = '20px'\n\tmarginRight = '20px' \n\tmarginBottom = '0px'\n\tmarginTop = '0px'\n\tpadding = '0px'\n\tcolor = '#000000'\n\tsize = '16px'\n\tbold = 'true' \n\tfontFamily = 'roboto-regular' \n\ttype = 'Text'\n\n\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\tcornerRadius = '0px'\n\n\n\n\n\n    borderColor = '#000000'\n    borderWidth = '0px'\n\n\t  value = 'No of Bus Under Maintance'\n>\n<\/text>\n\n<\/pc>\n<\/pr>\n<\/pc>\n<\/pr><pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tpadding = '20px'\n\tbgColor = '#FFFFFF'\n\n\t\twidth = '100%'\n\t\thAlign = 'center'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\tpadding = '5px'\n\n>\n\t<pr \n\t>\n\t<pc \n\t\n>\n\t<image  \n\t\tmargin = '0px'\n\n    borderColor = '#09B24D'\n    borderWidth = '0px'\n\tcolor = '#000000'\n\tbgColor = '#FFFFFF'\n\twidth = '52px'\n\theight = '52px'\n\ttype = 'icon'\n\tvalue = 'transportation-bus-front-12'\n\tsize = '32px'\n\tcornerRadius = '0px'\n\ticonType = 'outline'\n\/>\n<\/pc>\n<\/pr><pr \n\t>\n\t<pc \n\t\n>\n\t<text \n\n\tmarginLeft = '0px'\n\tmarginRight = '0px' \n\tmarginBottom = '0px'\n\tmarginTop = '5px'\n\tpadding = '0px'\n\tcolor = '#000000'\n\tsize = '33px'\n\tbold = 'true' \n\tfontFamily = 'roboto-regular' \n\ttype = 'Form Data'\n\n\tbgColor = '#FFFFFF'\n\tcornerRadius = '0px'\n\n\n\tdisplayType = 'actual'\n\tthousandsSeperator = 'LOCALE'\n\tdecimalSeperator = 'DOT'\n\tnumberScale = 'none'\n\n\n\n    borderColor = '#09B24D'\n    borderWidth = '0px'\n\n\t\tcriteria = 'Bus_Status == &quot;Under Maintenance&quot;'\n\t  value = 'thisapp.Bus_Register_Details.ID.count'\n>\n<\/text>\n\n<\/pc>\n<\/pr>\n<\/pc>\n<\/pr>\n<\/pc>\n<\/pr>\n<\/pc>\n<\/pr>\n<\/panel>\n<\/column><column\n   \t\t width='25%'\n   \t>\n\t<panel elementName='Panel 3'\n \n >\n\t<pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\n\t\twidth = '100%'\n>\n\t<pr \n\t\t\twidth='fill'\n\t\theight='50px'\n>\n\t<pc \n\t\tpadding = '0px'\n\tbgColor = 'theme:35'\n\n    borderColor = '#444444'\n    borderWidth = '0px'\n\t\twidth = '100%'\n\t\thAlign = 'center'\n\t\tvAlign = 'middle'\n    \tcornerRadius = '0px'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\n>\n\t<text \n\n\tmarginLeft = '20px'\n\tmarginRight = '20px' \n\tmarginBottom = '0px'\n\tmarginTop = '0px'\n\tpadding = '0px'\n\tcolor = '#2D2D2D'\n\tsize = '16px'\n\tbold = 'true' \n\tfontFamily = 'roboto-regular' \n\ttype = 'Text'\n\n\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\tcornerRadius = '0px'\n\n\n\n\n\n    borderColor = '#2D2D2D'\n    borderWidth = '0px'\n\n\t  value = 'Today Employee Check in'\n>\n<\/text>\n\n<\/pc>\n<\/pr>\n<\/pc>\n<\/pr><pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tpadding = '20px'\n\tbgColor = '#FFFFFF'\n\n\t\twidth = '100%'\n\t\thAlign = 'center'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\tpadding = '5px'\n\n>\n\t<pr \n\t>\n\t<pc \n\t\n>\n\t<image  \n\t\tmargin = '0px'\n\n    borderColor = '#9B69FB'\n    borderWidth = '0px'\n\tcolor = '#000000'\n\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\twidth = '52px'\n\theight = '52px'\n\ttype = 'icon'\n\tvalue = 'users-2-a-check'\n\tsize = '32px'\n\tcornerRadius = '0px'\n\ticonType = 'outline'\n\/>\n<\/pc>\n<\/pr><pr \n\t>\n\t<pc \n\t\n>\n\t<text \n\n\tmarginLeft = '0px'\n\tmarginRight = '0px' \n\tmarginBottom = '0px'\n\tmarginTop = '5px'\n\tpadding = '0px'\n\tcolor = '#000000'\n\tsize = '33px'\n\tbold = 'true' \n\ttype = 'Form Data'\n\n\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\tcornerRadius = '0px'\n\n\n\tdisplayType = 'actual'\n\tthousandsSeperator = 'LOCALE'\n\tdecimalSeperator = 'DOT'\n\tnumberScale = 'none'\n\n\n\n    borderColor = '#9B69FB'\n    borderWidth = '0px'\n\n\t\tcriteria = 'Check_In_Date_Time is today'\n\t  value = 'thisapp.Check_in_Check_out.ID.count'\n>\n<\/text>\n\n<\/pc>\n<\/pr>\n<\/pc>\n<\/pr>\n<\/pc>\n<\/pr>\n<\/pc>\n<\/pr>\n<\/panel>\n<\/column>\n<\/row><row>\n\t<column\n   \t\t width='33%'\n   \t>\n\t<panel elementName='Panel 4'\n \n >\n\t<pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tbgColor = '#FFFFFF'\n\n\t\twidth = '100%'\n>\n\t<pr \n\t\t\twidth='fill'\n\t\theight='50px'\n>\n\t<pc \n\t\tpadding = '0px'\n\tbgColor = 'theme:35'\n\n    borderColor = '#444444'\n    borderWidth = '0px'\n\t\twidth = '100%'\n\t\thAlign = 'center'\n\t\tvAlign = 'middle'\n    \tcornerRadius = '0px'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\n>\n\t<text \n\n\tmarginLeft = '20px'\n\tmarginRight = '20px' \n\tmarginBottom = '0px'\n\tmarginTop = '0px'\n\tpadding = '0px'\n\tcolor = '#2D2D2D'\n\tsize = '16px'\n\tbold = 'true' \n\tfontFamily = 'roboto-regular' \n\ttype = 'Text'\n\n\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\tcornerRadius = '0px'\n\n\n\n\n\n    borderColor = '#2D2D2D'\n    borderWidth = '0px'\n\n\t  value = 'No of Driver Present'\n>\n<\/text>\n\n<\/pc>\n<\/pr>\n<\/pc>\n<\/pr><pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tpadding = '20px'\n\tbgColor = '#FFFFFF'\n\n\t\twidth = '100%'\n\t\thAlign = 'center'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\n\t\thAlign = 'left'\n>\n\t<text \n\n\tmargin = '0px'\n\tpadding = '0px'\n\tcolor = '#000000'\n\tsize = '36px'\n\tbold = 'true' \n\ttype = 'Form Data'\n\n\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\tcornerRadius = '0px'\n\n\n\tdisplayType = 'actual'\n\tthousandsSeperator = 'LOCALE'\n\tdecimalSeperator = 'DOT'\n\tnumberScale = 'none'\n\n\n\n    borderColor = '#00D9B1'\n    borderWidth = '0px'\n\n\t\tcriteria = 'Check_In_Date_Time is today &amp;&amp; Role == &quot;Driver&quot;'\n\t  value = 'thisapp.Check_in_Check_out.ID.count'\n>\n<\/text>\n\n<\/pc><pc \n\t\n>\n\t<image  \n\t\tmarginLeft = '5px'\n\tmarginRight = '0px' \n\tmarginBottom = '0px'\n\tmarginTop = '0px'\n\n    borderColor = '#FFFFFF'\n    borderWidth = '0px'\n\tcolor = '#000000'\n\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\twidth = '40px'\n\theight = '40px'\n\ttype = 'icon'\n\tvalue = 'users-multiple-19'\n\tsize = '22px'\n\tcornerRadius = '20px'\n\ticonType = 'outline'\n\/>\n<\/pc>\n<\/pr>\n<\/pc>\n<\/pr>\n<\/pc>\n<\/pr>\n<\/panel>\n<\/column><column\n   \t\t width='34%'\n   \t>\n\t<panel elementName='Panel 5'\n \n >\n\t<pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tbgColor = '#FFFFFF'\n\n\t\twidth = '100%'\n>\n\t<pr \n\t\t\twidth='fill'\n\t\theight='50px'\n>\n\t<pc \n\t\tpadding = '0px'\n\tbgColor = 'theme:35'\n\n    borderColor = '#444444'\n    borderWidth = '0px'\n\t\twidth = '100%'\n\t\thAlign = 'center'\n\t\tvAlign = 'middle'\n    \tcornerRadius = '0px'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\n>\n\t<text \n\n\tmarginLeft = '20px'\n\tmarginRight = '20px' \n\tmarginBottom = '0px'\n\tmarginTop = '0px'\n\tpadding = '0px'\n\tcolor = '#2D2D2D'\n\tsize = '16px'\n\tbold = 'true' \n\tfontFamily = 'roboto-regular' \n\ttype = 'Text'\n\n\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\tcornerRadius = '0px'\n\n\n\n\n\n    borderColor = '#2D2D2D'\n    borderWidth = '0px'\n\n\t  value = 'No of Conductor Present'\n>\n<\/text>\n\n<\/pc>\n<\/pr>\n<\/pc>\n<\/pr><pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tpadding = '20px'\n\tbgColor = '#FFFFFF'\n\n\t\twidth = '100%'\n\t\thAlign = 'center'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\tpadding = '5px'\n\n>\n\t<pr \n\t>\n\t<pc \n\t\n>\n\t<image  \n\t\tmargin = '0px'\n\n    borderColor = '#FFFFFF'\n    borderWidth = '0px'\n\tcolor = '#000000'\n\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\twidth = '52px'\n\theight = '52px'\n\ttype = 'icon'\n\tvalue = 'users-2-a-check'\n\tsize = '32px'\n\tcornerRadius = '26px'\n\ticonType = 'outline'\n\/>\n<\/pc>\n<\/pr><pr \n\t>\n\t<pc \n\t\n>\n\t<text \n\n\tmarginLeft = '0px'\n\tmarginRight = '0px' \n\tmarginBottom = '0px'\n\tmarginTop = '5px'\n\tpadding = '0px'\n\tcolor = '#000000'\n\tsize = '33px'\n\tbold = 'true' \n\ttype = 'Form Data'\n\n\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\tcornerRadius = '0px'\n\n\n\tdisplayType = 'actual'\n\tthousandsSeperator = 'LOCALE'\n\tdecimalSeperator = 'DOT'\n\tnumberScale = 'none'\n\n\n\n    borderColor = '#2A70E7'\n    borderWidth = '0px'\n\n\t\tcriteria = 'Check_In_Date_Time is today &amp;&amp; Role == &quot;Conductor&quot;'\n\t  value = 'thisapp.Check_in_Check_out.ID.count'\n>\n<\/text>\n\n<\/pc>\n<\/pr>\n<\/pc>\n<\/pr>\n<\/pc>\n<\/pr>\n<\/pc>\n<\/pr>\n<\/panel>\n<\/column><column\n   \t\t width='33%'\n   \t>\n\t<panel elementName='Panel 6'\n \n >\n\t<pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tbgColor = '#FFFFFF'\n\n\t\twidth = '100%'\n>\n\t<pr \n\t\t\twidth='fill'\n\t\theight='48px'\n>\n\t<pc \n\t\tpadding = '0px'\n\tbgColor = 'theme:35'\n\n    borderColor = '#444444'\n    borderWidth = '0px'\n\t\twidth = '100%'\n\t\thAlign = 'center'\n\t\tvAlign = 'middle'\n    \tcornerRadius = '0px'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\n>\n\t<text \n\n\tmarginLeft = '20px'\n\tmarginRight = '20px' \n\tmarginBottom = '0px'\n\tmarginTop = '0px'\n\tpadding = '0px'\n\tcolor = '#2D2D2D'\n\tsize = '16px'\n\tbold = 'true' \n\tfontFamily = 'roboto-regular' \n\ttype = 'Text'\n\n\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\tcornerRadius = '0px'\n\n\n\n\n\n    borderColor = '#2D2D2D'\n    borderWidth = '0px'\n\n\t  value = 'No of Cleaner  Present'\n>\n<\/text>\n\n<\/pc>\n<\/pr>\n<\/pc>\n<\/pr><pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tpadding = '20px'\n\tbgColor = '#FFFFFF'\n\n\t\twidth = '100%'\n\t\thAlign = 'center'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\n>\n\t<text \n\n\tmargin = '0px'\n\tpadding = '0px'\n\tcolor = '#000000'\n\tsize = '36px'\n\tbold = 'true' \n\ttype = 'Form Data'\n\n\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\tcornerRadius = '0px'\n\n\n\tdisplayType = 'actual'\n\tthousandsSeperator = 'LOCALE'\n\tdecimalSeperator = 'DOT'\n\tnumberScale = 'none'\n\n\n\n    borderColor = '#FF4C2F'\n    borderWidth = '0px'\n\n\t\tcriteria = 'Check_In_Date_Time is today &amp;&amp; Role == &quot;Cleaner&quot;'\n\t  value = 'thisapp.Check_in_Check_out.ID.count'\n>\n<\/text>\n\n<\/pc>\n<\/pr>\n<\/pc>\n<\/pr>\n<\/pc>\n<\/pr>\n<\/panel>\n<\/column>\n<\/row><row>\n\t<column\n   \t\t width='38%'\n   \t>\n\t<report \n\telementName='Report 1'\n\n\t\tappLinkName = 'thisapp'\n\t\tlinkName = 'Employee_Roles'\n\t\n\t\tiszreport = 'true'\n\theightType = 'custom'\n\theightValue = '400'\n\n\/>\n<\/column><column\n   \t\t width='62%'\n   \t>\n\t<report \n\telementName='Report'\n\n\t\tappLinkName = 'thisapp'\n\t\tlinkName = 'All_Trip_Schedules_Reports'\n\t\n\t\tiszreport = 'false'\n\t\t\t\t\tzc_Footer = 'false'\n\t\t\t\t\tzc_AddRec = 'false'\n\t\t\t\t\tzc_EditRec = 'false'\n\t\t\t\t\tzc_Print = 'false'\n\t\t\t\t\tzc_Export = 'false'\n\t\t\t\t\tzc_DelRec = 'false'\n\t\t\t\t\tzc_DuplRec = 'false'\n\t\t\t\t\tzc_EditBulkRec = 'false'\n\t\t\t\t\tzc_BulkDelete = 'false'\n\t\t\t\t\tzc_BulkDuplicate = 'false'\n\theightType = 'custom'\n\theightValue = '400'\n\n\/>\n<\/column>\n<\/row><row>\n\t<column\n   \t\t width='100%'\n   \t>\n\t<report \n\telementName='Report 2'\n\n\t\tappLinkName = 'thisapp'\n\t\tlinkName = 'Trip_Graph'\n\t\n\t\tiszreport = 'true'\n\theightType = 'auto'\n\theightValue = '150'\n\n\/>\n<\/column>\n<\/row>\n<\/column>\n<\/row>\n<\/layout>\n<\/zml>"
+		}
+		page Employee_ID_Card
+		{
+			displayname = "Employee ID Card"
+			Content="<zml    \t\t\n\t\t\n\t\t\n\t\t\n\t\t\n>\n\t<layout>\n\t<row>\n\t<column\n   \t\t width='100%'\n   \t>\n\t<dsp id='html_snippet1' elementName='HTML Snippet'\n bgColor=\"#FFFFFF\" \n>\n\t<![CDATA[htmlpage html_snippet1()\ncontent\n&lt;%{\n\tlis = Employee_Details[ID != null];\n\t%&gt;\n&lt;style&gt;\n.employee-id-section * {\n  margin: 0;\n  padding: 0;\n  box-sizing: border-box;\n  font-family: &apos;Poppins&apos;, sans-serif;\n}\n\n.employee-id-section {\n  background: #7dfdfd;\n  display: flex;\n  flex-wrap: wrap;\n  justify-content: center;\n  align-items: flex-start;\n  gap: 25px;\n  padding: 30px;\n  min-height: 100vh;\n}\n\n.employee-card-container {\n  height: 450px;\n  width: 300px;\n  position: relative;\n  transform-style: preserve-3d;\n  perspective: 1000px;\n}\n\n.employee-card-container .employee-card {\n  position: absolute;\n  height: 100%;\n  width: 100%;\n  padding: 10px;\n  background: #fff;\n  border-radius: 10px;\n  transform-style: preserve-3d;\n  backface-visibility: hidden;\n  box-shadow: 15px 20px 30px rgba(0, 0, 0, 0.1);\n  transition: transform 0.7s cubic-bezier(0.4, 0.2, 0.2, 1);\n}\n\n.employee-card-container:hover .employee-front {\n  transform: rotateY(-180deg);\n}\n\n.employee-card-container .employee-back {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  flex-direction: column;\n  transform: rotateY(180deg);\n}\n\n.employee-card-container:hover .employee-back {\n  transform: rotateY(0deg);\n}\n\n.employee-logo {\n  display: block;\n  margin: 10px auto;\n}\n\n.employee-name,\n.employee-role {\n  text-align: center;\n  margin-top: 5px;\n}\n\n.employee-image {\n  text-align: center;\n  margin-top: 10px;\n}\n\n.employee-info {\n  text-align: center;\n  padding: 10px;\n}\n\n.employee-info h4,\n.employee-info p {\n  margin: 5px 0;\n}\n\n@media (max-width: 768px) {\n  .employee-card-container {\n    width: 90%;\n  }\n}\n&lt;\/style&gt;\n\n&lt;div class=&quot;employee-id-section&quot;&gt;\n&lt;%\n\tfor each  sub in lis\n\t{\n\t\timg = sub.Employee_Image;\n\t\timg = img.replaceAll(&quot;\/sharedBy\/appLinkName\/&quot;,zoho.appuri);\n\t\timg = img.replaceAll(&quot;viewLinkName&quot;,&quot;All_Employee_Details&quot;);\n\t\timg = img.replaceAll(&quot;fieldName&quot;,&quot;Employee_Image&quot;);\n\t\timg = img.replaceAll(&quot;&lt;img &quot;,&quot;&lt;img height=&apos;200px&apos; width=&apos;220px&apos; style=&apos;border-radius:8px;&apos; &quot;);\n\t\t%&gt;\n&lt;div class=&quot;employee-card-container&quot;&gt;\n    &lt;!-- Front Face --&gt;\n    &lt;div class=&quot;employee-card employee-front&quot;&gt;\n      &lt;img class=&quot;employee-logo&quot; src=&quot;https:\/\/tse1.mm.bing.net\/th?id=OIP.r40R5hLvEyRbtwIopUrD0wHaHa&amp;pid=Api&amp;P=0&amp;h=220&quot; height=&quot;110&quot; width=&quot;110&quot; alt=&quot;Logo&quot;&gt;\n      &lt;h4 class=&quot;employee-name&quot;&gt;&lt;%=sub.Name%&gt;&lt;\/h4&gt;\n      &lt;h4 class=&quot;employee-role&quot;&gt;&lt;%=sub.Role.Role%&gt;&lt;\/h4&gt;\n      &lt;div class=&quot;employee-image&quot;&gt;&lt;%=img%&gt;&lt;\/div&gt;\n    &lt;\/div&gt;\n\n    &lt;!-- Back Face --&gt;\n    &lt;div class=&quot;employee-card employee-back&quot;&gt;\n      &lt;img class=&quot;employee-logo&quot; src=&quot;https:\/\/tse1.mm.bing.net\/th?id=OIP.r40R5hLvEyRbtwIopUrD0wHaHa&amp;pid=Api&amp;P=0&amp;h=220&quot; height=&quot;100&quot; width=&quot;100&quot; alt=&quot;Logo&quot;&gt;\n      &lt;div class=&quot;employee-info&quot;&gt;\n        &lt;h4&gt;Email: &lt;%=sub.Email%&gt;&lt;\/h4&gt;\n        &lt;h4&gt;Phone: &lt;%=sub.Phone_Number1%&gt;&lt;\/h4&gt;\n        &lt;h4&gt;Employee ID: &lt;%=sub.Staff_ID%&gt;&lt;\/h4&gt;\n        &lt;p&gt;&lt;h4&gt;Address:&lt;\/h4&gt; &lt;%=sub.Address%&gt;&lt;\/p&gt;\n      &lt;\/div&gt;\n    &lt;\/div&gt;\n  &lt;\/div&gt;\n&lt;%\n\t}\n\t%&gt;\n&lt;\/div&gt;\n&lt;%\n\n}%&gt;]]>\n<\/dsp>\n<\/column>\n<\/row>\n<\/layout>\n<\/zml>"
+		}
+		page Employee_Trip_View_Details
+		{
+			displayname = "Employee Trip View Details"
+			Content="<zml    \t\t\n\t\t\n\t\t\n\t\t\n\t\t\n>\n\t<layout>\n\t<row>\n\t<column\n   \t\t width='100%'\n   \t>\n\t<dsp id='html_snippet2' elementName='HTML Snippet'\n bgColor=\"#FFFFFF\" \n>\n\t<![CDATA[htmlpage html_snippet2()\ncontent\n&lt;%{\n\t%&gt;\n&lt;div elName=&apos;zc-component&apos; formLinkName=&apos;Copy_Of_Employee_State_Less_Form&apos; params=&apos;zc_Header=false&amp;amp;zc_SuccMsg=Data Added Successfully!&amp;amp;zc_SubmitVal=Submit&amp;amp;zc_ResetVal=Reset&apos;&gt;Loading Form...&lt;\/div&gt;\n&lt;div elName=&apos;zc-component&apos; viewLinkName=&apos;Trip_Count_For_Employee&apos;name=&quot;karthi&quot; params=&apos;zc_Header=true&apos;&gt;Loading View...&lt;\/div&gt;\n&lt;%\n\n}%&gt;]]>\n<\/dsp>\n<\/column>\n<\/row>\n<\/layout>\n<\/zml>"
+		}
+		page widget
+		{
+			displayname = "widget"
+			Content="<zml    \t\t\n\t\t\n\t\t\n\t\t\n\t\t\n>\n\t<layout>\n\t\n<\/layout>\n<\/zml>"
+		}
+		page Home_Page
+		{
+			displayname = "Home Page"
+			Content="<zml    \t\t\n\t\t\n\t\t\n\t\t\n\t\t\n>\n\t<layout>\n\t<row>\n\t<column\n   \t\t width='100%'\n   \t>\n\t<widgets elementName='Widget' importedTemplate='true'\/>\n<\/column>\n<\/row>\n<\/layout>\n<\/zml>"
+		}
+	}
+
+
+		workflow
+		{
+		form
+		{
+			Create_Bus_ID as "Create Bus ID"
+			{
+				type =  form
+				form = Bus_Register_Details
+				record event = on add
+
+				on success
+				{
+					actions 
+					{
+						custom deluge script
+						(
+											input.Bus_ID = "RK" + input.Auto_Number;
+						)
+					}
+				}
+
+			}
+			Hide_Field as "Hide Field"
+			{
+				type =  form
+				form = Bus_Register_Details
+				record event = on add or edit
+
+				field rules
+				{
+					actions 
+					{
+						hide Bus_ID,Bus_Status,Count_For_Schedules;
+					}
+				}
+
+			}
+			Set_Field_Rules as "Set Field Rules"
+			{
+				type =  form
+				form = Employee_Details
+				record event = on add or edit
+
+				field rules
+				{
+					actions 
+					{
+						hide Staff_ID,Status,Status1,Present_Status,Check_In_OR_Check_Out_Count;
+					}
+					actions 
+					{
+						disable Salary,Joing_Date;
+					}
+					actions 
+					{
+					hide delete row of Uplode_Documents;
+					}
+					actions 
+					{
+					hide add row of Uplode_Documents;
+					}
+					actions  (Role == 313844000000140043)
+					{
+						show Driving_Licence_Number,Uplode_Driving_Licence;
+					}
+				}
+
+			}
+			Salary_Data_Fatch as "Salary Data Fatch"
+			{
+				type =  form
+				form = Employee_Details
+				record event = on add or edit
+
+				on user input of Role
+				{
+					actions 
+					{
+						custom deluge script
+						(
+											if(Role != null)
+										{
+											new = Role_Based_Salary_Details[ID == input.Role];
+											input.Salary = new.Salary;
+										}
+										else
+										{
+											input.Salary = null;
+										}
+						)
+					}
+				}
+
+			}
+			DOB_Validation as "DOB Validation"
+			{
+				type =  form
+				form = Employee_Details
+				record event = on add or edit
+
+				on user input of Date_of_Birth
+				{
+					actions 
+					{
+						custom deluge script
+						(
+											if(input.Date_of_Birth != null)
+										{
+											new = input.Date_of_Birth.yearsBetween(zoho.currentdate);
+											if(new < 18)
+											{
+												alert "You are not Eligible & You are Age is = " + new;
+												input.Date_of_Birth = null;
+											}
+										}
+						)
+					}
+				}
+
+			}
+			Driver_Details_Validation as "Driver Details Validation"
+			{
+				type =  form
+				form = Employee_Details
+				record event = on add or edit
+
+				on validate
+				{
+					actions 
+					{
+						custom deluge script
+						(
+											if(input.Uplode_Driving_Licence.isEmpty() && input.Role == 313844000000140043)
+										{
+											alert "Plz Uplode Driving Licence";
+											cancel submit;
+										}
+										if(input.Uplode_Documents.Criminal_Record_Police_Verification == null || input.Uplode_Documents.Medical_Fitness_Certificate == null)
+										{
+											alert "Uplode Required Documents";
+											cancel submit;
+										}
+										if(input.Phone_Number1.length() > 13 || input.Phone_Number1.length() < 13)
+										{
+											alert "Enter Valid Number";
+											cancel submit;
+										}
+						)
+					}
+				}
+
+			}
+			Route_ID_Create as "Route ID Create"
+			{
+				type =  form
+				form = Bus_Routes
+				record event = on add
+
+				on success
+				{
+					actions 
+					{
+						custom deluge script
+						(
+											input.Route_ID = "ROUTE_ID" + zoho.currentdate.getYear() + input.Auto_Number;
+						)
+					}
+				}
+
+			}
+			Set_Field_Rules1 as "Set Field Rules"
+			{
+				type =  form
+				form = Bus_Routes
+				record event = on add or edit
+
+				field rules
+				{
+					actions 
+					{
+						hide Route_ID,Route_Status,Route_Count_For_Schedule;
+					}
+				}
+
+			}
+			Disable_Field as "Disable Field"
+			{
+				type =  form
+				form = Check_in_Check_out
+				record event = on add or edit
+
+				field rules
+				{
+					actions 
+					{
+						disable Check_In_Date_Time,Role,Staff_ID,Staff_Name,status;
+					}
+				}
+
+			}
+			Filter_Report as "Filter Report"
+			{
+				type =  form
+				form = Copy_of_Check_in_Check_out
+				record event = on add
+
+				on user input of Staff_ID_Staff_Name
+				{
+					actions 
+					{
+						custom deluge script
+						(
+											if(Staff_ID_Staff_Name != null)
+										{
+											openUrl("#Report:report_for_pages?zc_LoadIn=embed-karthi&Staff_ID=" + input.Staff_ID_Staff_Name.Staff_ID + "&zc_Search=false&zc_AddRec=false&zc_MoreAction=false&zc_EditRec=false&zc_EditBulkRec=false&zc_Summary=false&zc_BulkDelete=false&zc_BulkDuplicate=false&zc_Export=false&zc_Print=false&zc_RecSelect=true","same window");
+										}
+										else
+										{
+											openUrl("#Script:page.parent.refresh","same window");
+										}
+						)
+					}
+				}
+
+			}
+			auto_populate_rows as "auto populate rows"
+			{
+				type =  form
+				form = Trip_Schedules_Form
+				record event = on add or edit
+
+				on load
+				{
+					actions 
+					{
+						custom deluge script
+						(
+											day = zoho.currentdate;
+										getweek = day.getDayOfWeek();
+										bal = 8 - getweek;
+										last = day.addDay(bal);
+										last1 = last.addDay(1);
+										week = last.getDayOfWeek();
+										var = "";
+										finalList = var.leftpad(6).toList("");
+										count = 0;
+										for each  day in finalList
+										{
+											summa = Trip_Schedules_Form.Tripe_Schedules();
+											summa.Trip_Date=last1.addDay(count);
+											input.Tripe_Schedules.insert(summa);
+											count = count + 1;
+										}
+										if(input.Tripe_Schedules.Trip_Date != null)
+										{
+											weekday = {"Sunday","monday","Tuesday","Wednesday","Thursday","Friday","Saturday"};
+											for each  rec in input.Tripe_Schedules
+											{
+												dates = rec.Trip_Date.getDayofweek();
+												new = weekday.get(dates - 1);
+												rec.Trip_Day=new;
+											}
+										}
+										disable Tripe_Schedules.Trip_Status;
+										disable Tripe_Schedules.Conductor_ID;
+										disable Tripe_Schedules.Cleaner_Name;
+										disable Tripe_Schedules.Conductor_Name;
+										disable Tripe_Schedules.Driver_ID;
+										disable Tripe_Schedules.Driver_Name;
+										disable Tripe_Schedules.Trip_Day;
+										disable Tripe_Schedules.Trip_Date;
+										disable Tripe_Schedules.Bus_Number;
+										disable Tripe_Schedules.Cleaner_ID;
+										disable Tripe_Schedules.Drive_Role;
+										hide Tripe_Schedules.Drive_Role;
+										hide Tripe_Schedules.Conductor_Role;
+										hide Tripe_Schedules.Cleaner_Role;
+										/*********************************************************************************/
+										// new.Bus_Number == input.Bus_ID_Bus_Number.Bus_Registration_Number
+										//another method 
+										// day = zoho.currentdate.getDayOfWeek();
+										// bal = 7 - day;
+										// var = "";
+										// finalList = var.leftPad(bal).toList("");
+										// count = 0;
+										// for each  day in finalList
+										// {
+										// 	summa = Test_form.Tripe_Schedules();
+										// 	summa.Trip_Date=zoho.currentdate.addDay(count);
+										// 	input.Tripe_Schedules.insert(summa);
+										// 	count = count + 1;
+										// }
+										// if(input.Tripe_Schedules.Trip_Date != null)
+										// {
+										// 	weekday = {"Sunday","monday","Tuesday","Wednesday","Thursday","Friday","Saturday"};
+										// 	for each  rec in input.Tripe_Schedules
+										// 	{
+										// 		dates = rec.Trip_Date.getDayofweek();
+										// 		new = weekday.get(dates - 1);
+										// 		rec.Trip_Day=new;
+										// 	}
+										// }
+						)
+					}
+				}
+
+			}
+			Leave_Calculation_in_End_ as "Leave Calculation in End Date"
+			{
+				type =  form
+				form = Leave_Request
+				record event = on add or edit
+
+				on user input of Leave_End_Date
+				{
+					actions 
+					{
+						custom deluge script
+						(
+											if(input.Leave_Start_Date != null && input.Leave_End_Date != null)
+										{
+											if(input.Leave_End_Date < input.Leave_Start_Date)
+											{
+												alert "Enter Valid Date";
+												input.Leave_End_Date = null;
+												input.Leave_Start_Date = null;
+											}
+											if(input.Leave_End_Date != null)
+											{
+												input.No_of_Days_Leave = input.Leave_Start_Date.daysBetween(input.Leave_End_Date) + 1;
+											}
+										}
+										else
+										{
+											input.No_of_Days_Leave = null;
+										}
+						)
+					}
+				}
+
+			}
+			Leave_Calculation_in_Star as "Leave Calculation in Start Date"
+			{
+				type =  form
+				form = Leave_Request
+				record event = on add or edit
+
+				on user input of Leave_Start_Date
+				{
+					actions 
+					{
+						custom deluge script
+						(
+											if(input.Leave_Start_Date != null && input.Leave_End_Date != null)
+										{
+											if(input.Leave_Start_Date < zoho.currentdate)
+											{
+												alert "Enter Valid Date";
+												input.Leave_Start_Date = null;
+												input.Leave_End_Date = null;
+												input.No_of_Days_Leave = null;
+											}
+											if(input.Leave_End_Date != null)
+											{
+												input.No_of_Days_Leave = input.Leave_Start_Date.daysBetween(input.Leave_End_Date) + 1;
+											}
+										}
+										else
+										{
+											input.No_of_Days_Leave = null;
+										}
+						)
+					}
+				}
+
+			}
+			fatch_data_from_empolyee_ as "fatch data from empolyee details"
+			{
+				type =  form
+				form = Leave_Request
+				record event = on add or edit
+
+				on user input of Employee_ID_Employee_Name
+				{
+					actions 
+					{
+						custom deluge script
+						(
+											if(input.Employee_ID_Employee_Name != null)
+										{
+											new = Employee_Details[ID = input.Employee_ID_Employee_Name];
+											input.Role = new.Role.Role;
+											//fatch bus number
+											var = Empolyee_Shift_Allotment[Driver_ID == input.Employee_ID_Employee_Name];
+											if(var.Driver_ID == input.Employee_ID_Employee_Name)
+											{
+												input.Bus_Number = var.Bus_ID_Bus_Registration_Number.Bus_Registration_Number;
+											}
+											var2 = Empolyee_Shift_Allotment[Conductor_ID == input.Employee_ID_Employee_Name];
+											if(var2.Conductor_ID == input.Employee_ID_Employee_Name)
+											{
+												input.Bus_Number = var2.Bus_ID_Bus_Registration_Number.Bus_Registration_Number;
+											}
+										}
+										else
+										{
+											input.Bus_Number = null;
+											input.Role = null;
+										}
+						)
+					}
+				}
+
+			}
+			Fatch_Role_Base_Salary as "Fatch Role Base Salary"
+			{
+				type =  form
+				form = Active_Staff_Registratione
+				record event = on add or edit
+
+				on user input of Role
+				{
+					actions 
+					{
+						custom deluge script
+						(
+											new = Active_Staff_Role_Base_Salary[ID == input.Role];
+										input.Per_Day_Salary = new.Salary;
+										if(input.Role.Role != "Driver" && input.Uplode_Driving_Licence != null)
+										{
+											input.Uplode_Driving_Licence = null;
+										}
+						)
+					}
+				}
+
+			}
+			Fatch_Data_From_Shift_All as "Fatch Data From Shift Allotement"
+			{
+				type =  form
+				form = Trip_Schedules_Form
+				record event = on add or edit
+
+				on user input of Bus_ID_Bus_Number
+				{
+					actions 
+					{
+						custom deluge script
+						(
+											if(input.Bus_ID_Bus_Number != null)
+										{
+											new = Empolyee_Shift_Allotment[ID != null];
+											for each  rec in new
+											{
+												for each  i in rec.Shift_Days
+												{
+													for each  u in input.Tripe_Schedules
+													{
+														if(rec.Bus_ID_Bus_Registration_Number == input.Bus_ID_Bus_Number && i == u.Trip_Day)
+														{
+															u.Driver_ID=rec.Driver_ID.Staff_ID;
+															u.Driver_Name=rec.Driver_Name;
+															u.Drive_Role="Driver";
+															u.Conductor_ID=rec.Conductor_ID.Staff_ID;
+															u.Conductor_Name=rec.Conductor_Name;
+															u.Conductor_Role="Conductor";
+															u.Cleaner_ID=rec.Cleaner_ID.Staff_ID;
+															u.Cleaner_Name=rec.Cleaner_Name;
+															u.Cleaner_Role="Cleaner";
+															u.Bus_Number=input.Bus_ID_Bus_Number.Bus_Registration_Number;
+														}
+													}
+												}
+											}
+										}
+										else
+										{
+											for each  u in input.Tripe_Schedules
+											{
+												u.Driver_ID=null;
+												u.Driver_Name=null;
+												u.Conductor_ID=null;
+												u.Conductor_Name=null;
+												u.Cleaner_ID=null;
+												u.Cleaner_Name=null;
+												u.Bus_Number=null;
+											}
+										}
+										// for each  k in input.Tripe_Schedules
+										// {
+										// 	k.Bus_Number=input.Bus_ID_Bus_Number.Bus_Registration_Number;
+										// }
+										//***********************************************************************************************************
+										// new = Empolyee_Shift_Allotment[ID != null];
+										// for each  rec in new
+										// {
+										// 	if(rec.Bus_ID_Bus_Registration_Number == input.Bus_ID_Bus_Number)
+										// 	{
+										// 		for each  k in rec.Shift_Days
+										// 		{
+										// 			if(k == input.SubForm.Trip_Day)
+										// 			{
+										// 				info (k == input.SubForm.Trip_Day);
+										// 				for each  u in input.SubForm
+										// 				{
+										// 					info u;
+										// 					u.Driver_ID=rec.Driver_ID.Staff_ID;
+										// 					u.Driver_Name=rec.Driver_Name;
+										// 					u.Conductor_ID=rec.Conductor_ID.Staff_ID;
+										// 					u.Conductor_Name=rec.Conductor_Name;
+										// 					u.Cleaner_Name=rec.Cleaner_Name;
+										// 				}
+										// 			}
+										// 		}
+										// 	}
+										// }
+						)
+					}
+				}
+
+			}
+			Driver_Name_Fatch as "Driver Name Fatch"
+			{
+				type =  form
+				form = Empolyee_Shift_Allotment
+				record event = on add or edit
+
+				on user input of Driver_ID
+				{
+					actions 
+					{
+						custom deluge script
+						(
+											new = Employee_Details[ID == input.Driver_ID];
+										input.Driver_Name = new.Name;
+						)
+					}
+				}
+
+			}
+			Trip_ID_Create as "Trip ID Create"
+			{
+				type =  form
+				form = Trip_Schedules_Form
+				record event = on add
+
+				on success
+				{
+					actions 
+					{
+						custom deluge script
+						(
+											new = "Trip_ID".upper() + zoho.currentdate.getYear() + input.Auto_Number;
+										var = Bus_Register_Details[ID == input.Bus_ID_Bus_Number];
+										var.Count_For_Schedules=1;
+										routecount = Bus_Routes[ID == input.Routes_ID_Route_Location];
+										routecount.Route_Count_For_Schedule=1;
+						)
+					}
+				}
+
+			}
+			Check_Employee_Repetition as "Check Employee Repetition Alart"
+			{
+				type =  form
+				form = Empolyee_Shift_Allotment
+				record event = on add or edit
+
+				on validate
+				{
+					actions 
+					{
+						custom deluge script
+						(
+											new = Empolyee_Shift_Allotment[ID != null];
+										for each  rec in new
+										{
+											for each  k in rec.Shift_Days
+											{
+												for each  r in input.Shift_Days
+												{
+													if(rec.Driver_ID == input.Driver_ID || rec.Conductor_ID == input.Conductor_ID || rec.Cleaner_ID == input.Cleaner_ID && k == r)
+													{
+														alert "Alredy Shift Scheduled So Check You Enter Details";
+														cancel submit;
+													}
+												}
+											}
+										}
+						)
+					}
+				}
+
+			}
+			Employee_details_and_Ente as "Employee details and Enter Salary"
+			{
+				type =  form
+				form = Salary_Master
+				record event = on add or edit
+
+				on load
+				{
+					actions 
+					{
+						custom deluge script
+						(
+											new = Employee_Details[ID != null];
+										for each  emp in new
+										{
+											if(emp.Staff_ID != null && emp.Status == "Active")
+											{
+												var = Salary_Master.Employee_Detail();
+												var.Employee_ID=emp.Staff_ID;
+												var.Employee_Name=emp.Name;
+												var.Role=emp.Role.Role;
+												var.Salary=emp.Salary;
+												var.Email=emp.Email;
+												input.Employee_Detail.insert(var);
+											}
+										}
+										disable Employee_Detail.Employee_Name;
+										disable Employee_Detail.Employee_ID;
+										disable Employee_Detail.Transection_Date_Time;
+										disable Employee_Detail.Role;
+										disable Employee_Detail.Email;
+						)
+					}
+				}
+
+			}
+			Create_Transection_ID as "Create Transection ID"
+			{
+				type =  form
+				form = Salary_Master
+				record event = on add
+
+				on success
+				{
+					actions 
+					{
+						custom deluge script
+						(
+											input.Transection_ID = "T_ID" + zoho.currentdate + input.Auto_Number;
+										new = Salary_Master[ID != null];
+										new.count_field=1;
+						)
+					}
+				}
+
+			}
+			Active_Staff_Details as "Active Staff Details"
+			{
+				type =  form
+				form = Active_Staff_Allote
+				record event = on add or edit
+
+				on user input of Active_Staff_ID
+				{
+					actions 
+					{
+						custom deluge script
+						(
+											new = Active_Staff_Registratione[ID == input.Active_Staff_ID];
+										input.Name = new.Name;
+										// input.Role = new.Role.Role;
+						)
+					}
+				}
+
+			}
+			Test as "Test"
+			{
+				type =  form
+				form = Leave_Request
+				record event = on add or edit
+					status = inactive
+
+				on user input of No_of_Days_Leave
+				{
+					actions 
+					{
+						custom deluge script
+						(
+											new = Trip_Schedules_Ex_sub[ID != null];
+										startdate = input.Leave_Start_Date;
+										enddate = input.Leave_End_Date;
+										emtydate = startdate;
+										no_of_days = startdate.daysBetween(enddate);
+										emty = " ".leftpad(no_of_days).toList("");
+										for each  d in emty
+										{
+											// 	info emtydate;
+											for each  k in new
+											{
+												if(k.Trip_Date == emtydate && k.Driver_ID == input.Employee_ID_Employee_Name.Staff_ID)
+												{
+													info "varuthu";
+												}
+											}
+											emtydate = emtydate.addDay(1);
+										}
+										//working
+										// new=Trip_Schedules_Ex_sub[ID!=null];
+										// startdate = input.Leave_Start_Date;
+										// enddate = input.Leave_End_Date;
+										// emtydate=startdate;
+										// no_of_days = startdate.daysBetween(enddate);
+										// emty = " ".leftpad(no_of_days).toList("");
+										// for each  d in emty
+										// {
+										// 		info emtydate;
+										// 	emtydate = emtydate.addDay(1);
+										// }
+						)
+					}
+				}
+
+			}
+			Change_Staff_Details as "Change Staff Details"
+			{
+				type =  form
+				form = Active_Staff_Allote
+				record event = on add or edit
+
+				on success
+				{
+					actions 
+					{
+						custom deluge script
+						(
+											openUrl("#Script:page.parent.reload","parent window");
+										new = Trip_Schedules_Form[ID != null];
+										for each  rec in new
+										{
+											for each  k in rec.Tripe_Schedules
+											{
+												if(k.Trip_Date == input.Date_field && k.Bus_Number == input.Bus_Number && k.Driver_ID == null && input.Role3.Role == "Driver")
+												{
+													k.Driver_ID=input.Active_Staff_ID.Active_Staff_ID;
+													k.Driver_Name=input.Name.toText();
+												}
+												else if(k.Trip_Date == input.Date_field && k.Bus_Number == input.Bus_Number && k.Cleaner_ID == null && input.Role3.Role == "Cleaner")
+												{
+													k.Cleaner_ID=input.Active_Staff_ID.Active_Staff_ID;
+													k.Cleaner_ID=input.Name.toText();
+												}
+												else if(k.Trip_Date == input.Date_field && k.Bus_Number == input.Bus_Number && k.Conductor_ID == null && input.Role3.Role == "Conductor")
+												{
+													k.Conductor_ID=input.Active_Staff_ID.Active_Staff_ID;
+													k.Conductor_Name=input.Name.toText();
+												}
+											}
+										}
+										/*******************************************************/
+										// new = Trip_Schedules_Form[ID != null];
+										// for each  rec in new
+										// {
+										// 	for each  k in rec.Tripe_Schedules
+										// 	{
+										// 		if(k.Driver_ID == null && input.Role3.Role == "Driver")
+										// 		{
+										// 			k.Driver_ID=input.Active_Staff_ID.Active_Staff_ID;
+										// 			k.Driver_Name=input.Name.toText();
+										// 		}
+										// 		else if(k.Cleaner_ID == null && input.Role3.Role == "Cleaner")
+										// 		{
+										// 			k.Cleaner_ID=input.Active_Staff_ID.Active_Staff_ID;
+										// 			k.Cleaner_ID=input.Name.toText();
+										// 		}
+										// 		else if(k.Conductor_ID == null && input.Role3.Role == "Conductor")
+										// 		{
+										// 			k.Conductor_ID=input.Active_Staff_ID.Active_Staff_ID;
+										// 			k.Conductor_Name=input.Name.toText();
+										// 		}
+										// 	}
+										// }
+										// for each  k in new.Tripe_Schedules
+										// {
+										// 	info k.Driver_ID;
+										// 	if(k.Driver_ID == null)
+										// 	{
+										// 		k.Driver_ID=input.Active_Staff_ID;
+										// 		k.Driver_Name=input.Name.totext();
+										// 	}
+										// 	else if(k.Conductor_ID == null)
+										// 	{
+										// 		k.Conductor_ID=input.Active_Staff_ID;
+										// 		k.Conductor_Name=input.Name.totext();
+										// 	}
+										// 	else if(k.Cleaner_ID == null)
+										// 	{
+										// 		k.Cleaner_ID=input.Active_Staff_ID;
+										// 		k.Cleaner_Name=input.Name.totext();
+										// 	}
+										// }
+						)
+					}
+				}
+
+			}
+			Condector_Details_Fatch as "Condector Details Fatch"
+			{
+				type =  form
+				form = Empolyee_Shift_Allotment
+				record event = on add or edit
+
+				on user input of Conductor_ID
+				{
+					actions 
+					{
+						custom deluge script
+						(
+											new = Employee_Details[ID == input.Conductor_ID];
+										input.Conductor_Name = new.Name;
+						)
+					}
+				}
+
+			}
+			Cleaner_Name_Fatch as "Cleaner Name Fatch"
+			{
+				type =  form
+				form = Empolyee_Shift_Allotment
+				record event = on add or edit
+
+				on user input of Cleaner_ID
+				{
+					actions 
+					{
+						custom deluge script
+						(
+											new = Employee_Details[ID == input.Cleaner_ID];
+										input.Cleaner_Name = new.Name;
+						)
+					}
+				}
+
+			}
+			Validation as "Validation"
+			{
+				type =  form
+				form = Trip_Schedules_Form
+				record event = on add or edit
+					status = inactive
+
+				on validate
+				{
+					actions 
+					{
+						custom deluge script
+						(
+											// new = Trip_Schedules_Ex_sub[ID != null];
+										// if(new.Trip_Date == input.Tripe_Schedules.Trip_Date && new.Bus_Number == input.Bus_ID_Bus_Number.Bus_Registration_Number)
+										// {
+										// 	alert "Your Are Alredy Schedules";
+										// 	cancel submit;
+										// }
+										// // var2=Trip_Schedules_Ex_sub[ID!=null];
+										// // for each i in var2
+										// // {
+										// // 	for each j in input.Tripe_Schedules
+										// //     {
+										// // 		if(i.Trip_Date==j.Trip_Date)
+										// // 		{
+										// // 			alert "vhshgxkjh" ;
+										// // 			cancel submit;
+										// // 		}
+										// //     }
+						)
+					}
+				}
+
+			}
+			Status_Change as "Status Change"
+			{
+				type =  form
+				form = Check_in_Check_out
+				record event = on add or edit
+
+				on success
+				{
+					actions 
+					{
+						custom deluge script
+						(
+											var = Employee_Details[Staff_ID == input.Staff_ID];
+										if(input.status == "Check in")
+										{
+											var.Status1=1;
+										}
+										openUrl("#Script:page.parent.refresh","parent window");
+						)
+					}
+				}
+
+			}
+			test1 as "test"
+			{
+				type =  form
+				form = Employee_Details
+				record event = on add or edit
+					status = inactive
+
+				on load
+				{
+				}
+
+			}
+			Set_Field_Rules2 as "Set Field Rules"
+			{
+				type =  form
+				form = Trip_Schedules_Form
+				record event = on add or edit
+
+				field rules
+				{
+					actions 
+					{
+						hide Trip_ID;
+					}
+					actions 
+					{
+					hide add row of Tripe_Schedules;
+					}
+					actions 
+					{
+					hide delete row of Tripe_Schedules;
+					}
+					actions 
+					{
+						disable Trip_Schedules_Date;
+					}
+					actions  (Bus_ID_Bus_Number is not null)
+					{
+						show Routes_ID_Route_Location;
+					}
+					actions  (Routes_ID_Route_Location is not null)
+					{
+						show Tripe_Schedules;
+					}
+				}
+
+			}
+			test2 as "test"
+			{
+				type =  form
+				form = Check_in_Check_out
+				record event = on add or edit
+
+				on load
+				{
+					actions 
+					{
+						custom deluge script
+						(
+											if(input.status == "Check in")
+										{
+											hide Check_Out_Date_Time;
+										}
+										else if(input.status = "Check out")
+										{
+											hide Check_In_Date_Time;
+										}
+						)
+					}
+				}
+
+			}
+			Set_Field_Rules3 as "Set Field Rules"
+			{
+				type =  form
+				form = Salary_Master
+				record event = on add or edit
+
+				field rules
+				{
+					actions 
+					{
+					hide add row of Employee_Detail;
+					}
+					actions 
+					{
+					hide delete row of Employee_Detail;
+					}
+					actions 
+					{
+						hide Transection_ID,Status,count_field;
+					}
+				}
+
+			}
+			Disible as "Disible"
+			{
+				type =  form
+				form = Leave_Request
+				record event = on add or edit
+
+				field rules
+				{
+					actions 
+					{
+						disable Apply_Date,Bus_Number,No_of_Days_Leave,Role;
+					}
+					actions 
+					{
+						hide Leave_Status;
+					}
+				}
+
+			}
+			Cancel_sub as "Cancel sub"
+			{
+				type =  form
+				form = Salary_Master
+				record event = on add or edit
+
+				on validate
+				{
+					actions 
+					{
+						custom deluge script
+						(
+											var3 = Salary_Master[ID != null];
+										for each  f in var3
+										{
+											if(f.count_field == 1)
+											{
+												cancel submit;
+											}
+										}
+						)
+					}
+				}
+
+			}
+			Field_Rules2 as "Field Rules"
+			{
+				type =  form
+				form = Copy_of_Check_in_Check_out
+				record event = on add
+
+				field rules
+				{
+					actions 
+					{
+						disable Date_field;
+					}
+				}
+
+			}
+			Disable_Field_Rule as "Disable Field Rule"
+			{
+				type =  form
+				form = Active_Staff_Allote
+				record event = on add or edit
+
+				field rules
+				{
+					actions 
+					{
+						disable Date_field,Bus_Number,Name;
+					}
+				}
+
+			}
+			Negative_Number_Alart as "Negative Number Alart"
+			{
+				type =  form
+				form = Role_Based_Salary_Details
+				record event = on add or edit
+
+				on user input of Salary
+				{
+					actions 
+					{
+						custom deluge script
+						(
+											if(input.Salary < 0 || input.Salary < 10000)
+										{
+											alert "Enter Valid Number";
+											input.Salary = null;
+										}
+						)
+					}
+				}
+
+			}
+			Field_Rules as "Field Rules"
+			{
+				type =  form
+				form = Empolyee_Shift_Allotment
+				record event = on add or edit
+
+				field rules
+				{
+					actions 
+					{
+						disable Cleaner_Name,Conductor_Name,Driver_Name;
+					}
+				}
+
+			}
+			Field_Rules1 as "Field Rules"
+			{
+				type =  form
+				form = Active_Staff_Registratione
+				record event = on add or edit
+
+				field rules
+				{
+					actions 
+					{
+						hide Active_Staff_ID,Status;
+					}
+					actions  (Role == 313844000000153019)
+					{
+						show Driving_Licence_Number,Uplode_Driving_Licence;
+					}
+					actions 
+					{
+						disable Per_Day_Salary;
+					}
+				}
+
+			}
+			Check_Driving_Licence as "Check Driving Licence"
+			{
+				type =  form
+				form = Active_Staff_Registratione
+				record event = on add or edit
+
+				on validate
+				{
+					actions 
+					{
+						custom deluge script
+						(
+											if(input.Role == 313844000000153019)
+										{
+											alert " Plz Uplode Driving Licence";
+											cancel submit;
+										}
+						)
+					}
+				}
+
+			}
+			Integration_Workdrive as "Integration Workdrive"
+			{
+				type =  form
+				form = Employee_Details
+				record event = on add or edit
+
+				on success
+				{
+					actions 
+					{
+						custom deluge script
+						(
+											var = zoho.workdrive.createFolder(input.Name.first_name,"5yt4r84b239d84aca4c82bbfb36dfa09be85d","zoho_oauth_connection");
+										id = var.get("data").get("id");
+										lis = {"Driving_Licence":if(input.Uplode_Driving_Licence != null,input.Uplode_Driving_Licence,""),"Medical & Fitness Certificate":input.Uplode_Documents.Medical_Fitness_Certificate,"Proof of experience":if(input.Uplode_Documents.Proof_of_experience != null,input.Uplode_Documents.Proof_of_experience,""),"Criminal Record / Police Verification":input.Uplode_Documents.Criminal_Record_Police_Verification,"Uplode ID Proof":input.Uplode_ID_Proof};
+										for each  var1 in lis
+										{
+											if(var1 != null)
+											{
+												var2 = zoho.workdrive.uploadFile(var1,id,lis.toCollection().getKey(var1),false,"zoho_oauth_connection");
+											}
+										}
+										/*************************************************************************************************************************************************************/
+										maps = Map();
+										maps.put("EmployeeID",input.Staff_ID);
+										maps.put("FirstName",input.Name.first_name);
+										maps.put("LastName","-");
+										maps.put("EmailID",input.Email);
+										firstmap = maps.tostring();
+										smap = Map();
+										smap.put("inputData",firstmap);
+										posturl_people = invokeurl
+										[
+											url :"https://people.zoho.in/people/api/forms/json/employee/insertRecord"
+											type :POST
+											parameters:smap
+											connection:"zoho_people_connection"
+										];
+						)
+					}
+				}
+
+			}
+			Send_Email_Form_Propertie as "Send Email - Form Properties"
+			{
+				type =  presuccess
+				form = Salary_Master
+				on start
+				{
+					actions 
+					{
+						sendmail
+						(
+							from : "zoho.adminuserid"
+							to : "zoho.loginuserid"
+							subject : "Bus Empolyee Management System : New entry added"
+							message : "<div>Hello input.Employee_Detail.Employee_Name,<br><br>&nbsp; Your Salary is credited&nbsp;<br></div><br><br><br><br>"
+							attachments : template : _default as inline
+						)
+					}
+				}
+			}
+			Fatch_Data_For_Employee_D as "Fatch Data For Employee Details"
+			{
+				type =  form
+				form = resignation_form
+				record event = on add or edit
+
+				on user input of Employee_ID
+				{
+					actions 
+					{
+						custom deluge script
+						(
+											new = Employee_Details[ID == input.Employee_ID];
+										input.Name = new.Name;
+										input.Role = new.Role.Role;
+						)
+					}
+				}
+
+			}
+			Field_Rules3 as "Field Rules"
+			{
+				type =  form
+				form = resignation_form
+				record event = on add or edit
+
+				field rules
+				{
+					actions 
+					{
+						disable Date_Time,Name,Role;
+					}
+				}
+
+			}
+			Pay_Salary as "Pay Salary"
+			{
+				type =  form
+				form = Salary_Master
+				record event = on add or edit
+
+				on success
+				{
+					actions 
+					{
+						custom deluge script
+						(
+											for each  rec in input.Employee_Detail
+										{
+											if(rec.Email != null)
+											{
+												sendmail
+												[
+													from :zoho.adminuserid
+													to :rec.Email
+													subject :"Your Salary Details"
+													message :rec.Employee_Name + "   Your Salary Is Credited = $" + rec.Salary
+												]
+											}
+										}
+						)
+					}
+				}
+
+			}
+			send_mail_for_worker_shif as "send mail for worker shift"
+			{
+				type =  form
+				form = Trip_Schedules_Form
+				record event = on add or edit
+					status = inactive
+
+				on success
+				{
+					actions 
+					{
+						custom deluge script
+						(
+											// for each  rec in input.Tripe_Schedules
+										// {
+										// 	new = Employee_Details[Staff_ID == rec.Driver_ID || Staff_ID == rec.Conductor_ID || Staff_ID == rec.Cleaner_ID];
+										// 	sendmail
+										// 	[
+										// 		from :zoho.adminuser
+										// 		to :new.Email
+										// 		subject :"Your Trip Schedules Date"
+										// 		message :"your Week trip"
+										// 		Attachments :view:All_Trip_Schedules_Reports[ID == rec.ID || ID == rec.ID || ID == rec.ID] as PDF
+										// 	]
+										// }
+						)
+					}
+				}
+
+			}
+			Alert_For_Negative_Value as "Alert For Negative Value"
+			{
+				type =  form
+				form = Bus_Register_Details
+				record event = on add or edit
+
+				on user input of Seating_Capacity
+				{
+					actions 
+					{
+						custom deluge script
+						(
+											if(Seating_Capacity != null)
+										{
+											if(Seating_Capacity <= 0)
+											{
+												alert "Enter Valid Number";
+												input.Seating_Capacity = null;
+											}
+										}
+						)
+					}
+				}
+
+			}
+			Hide_For_All_Recode as "Hide For All Recode"
+			{
+				type =  form
+				form = Copy_of_Check_in_Check_out
+				record event = on add
+					status = inactive
+
+				on load
+				{
+					actions 
+					{
+						custom deluge script
+						(
+											// openUrl("#Report:report_for_pages?zc_LoadIn=embed-karthi&Staff_ID=" + null,"same window");
+						)
+					}
+				}
+
+			}
+			Alert_For_Negative_Value1 as "Alert For Negative Value"
+			{
+				type =  form
+				form = Active_Staff_Role_Base_Salary
+				record event = on add or edit
+
+				on user input of Salary
+				{
+					actions 
+					{
+						custom deluge script
+						(
+											if(input.Salary != null)
+										{
+											if(input.Salary <= 0)
+											{
+												alert "Enter For Valid Number";
+											}
+										}
+						)
+					}
+				}
+
+			}
+			Fatch_Employee_Details_Fo as "Fatch Employee Details For Filter"
+			{
+				type =  form
+				form = Copy_Of_Employee_State_Less_Form
+				record event = on add
+
+				on user input of Staff_ID
+				{
+					actions 
+					{
+						custom deluge script
+						(
+											if(input.Role.Role == "Driver")
+										{
+											openUrl("#Report:Trip_Count_For_Employee?zc_LoadIn=embed-karthi&Driver_ID=" + input.Staff_ID.Staff_ID,"same window");
+										}
+										else if(input.Role.Role == "Conductor")
+										{
+											openUrl("#Report:Trip_Count_For_Employee?zc_LoadIn=embed-karthi&Conductor_ID=" + input.Staff_ID.Staff_ID,"same window");
+										}
+										else if(input.Role.Role == "Cleaner")
+										{
+											openUrl("#Report:Trip_Count_For_Employee?zc_LoadIn=embed-karthi&Cleaner_ID=" + input.Staff_ID.Staff_ID,"same window");
+										}
+										// openUrl("#Form:Payment?Customer_ID=" + input.Customer_ID + "&Customer_Name.first_name=" + input.Customer_Name.first_name + "&Customer_Name.last_name=" + input.Customer_Name.last_name + "&Amount=" + input.Total_Liter_Price + "&Payment_Reson=" + input.Customer_Type,"popup window");
+						)
+					}
+				}
+
+			}
+			Validate_for_role_base as "Validate for role base"
+			{
+				type =  form
+				form = Employee_Details
+				record event = on add or edit
+
+				on user input of Role
+				{
+					actions 
+					{
+						custom deluge script
+						(
+											if(input.Role.Role != "Driver" && input.Uplode_Driving_Licence != null)
+										{
+											input.Uplode_Driving_Licence = null;
+										}
+						)
+					}
+				}
+
+			}
+			Negative_Number_Validatio as "Negative Number Validation"
+			{
+				type =  form
+				form = Salary_Master
+				record event = on add or edit
+
+				on user input of Employee_Detail.Salary
+				{
+					actions 
+					{
+						custom deluge script
+						(
+											for each  k in input.Employee_Detail
+										{
+											if(k.Salary < 0)
+											{
+												k.Salary=0;
+											}
+										}
+						)
+					}
+				}
+
+			}
+			suma as "suma"
+			{
+				type =  form
+				form = Active_Staff_Registratione
+				record event = on add or edit
+
+				on user input of Address
+				{
+					actions 
+					{
+						custom deluge script
+						(
+											if(input.Address.postal_Code != null)
+										{
+											if(Address.postal_Code.matches(".*[a-zA-Z].*"))
+											{
+												alert "not Valid";
+												input.Address.postal_Code = null;
+											}
+										}
+						)
+					}
+				}
+
+			}
+		}
+
+		schedule
+		{
+			Change_Present_Status_Cha as "Change Present Status Change"
+			{
+				type =  schedule
+				start = "2025-09-26 04:00:00"
+				frequency = daily
+				time zone = "Asia/Kolkata"
+				on start
+				{
+					actions 
+					{
+					on load
+					(
+						var = Trip_Schedules_Ex_sub[ID != null];
+										new = Employee_Details[ID != null];
+										for each  k in var
+										{
+											for each  g in new
+											{
+												if(k.Trip_Date == zoho.currentdate && g.Staff_ID == k.Driver_ID)
+												{
+													g.Present_Status="Present";
+												}
+												if(k.Trip_Date == zoho.currentdate && g.Staff_ID == k.Conductor_ID)
+												{
+													g.Present_Status="Present";
+												}
+												if(k.Trip_Date == zoho.currentdate && g.Staff_ID == k.Cleaner_ID)
+												{
+													g.Present_Status="Present";
+												}
+											}
+										}
+										// ===============================================================================================================================================================
+										// new = Trip_Schedules_Ex_sub[ID != null];
+										// emp = Employee_Details[ID != null];
+										// for each  k in new
+										// {
+										// 	for each  r in emp
+										// 	{
+										// 		if(zoho.currentdate  == k.Trip_Date)
+										// 		{
+										// 			if(r.Staff_ID == k.Driver_ID)
+										// 			{
+										// 				r.Present_Status="Present";
+										// 			}
+										// 			else if(r.Staff_ID == k.Conductor_ID)
+										// 			{
+										// 				r.Present_Status="Present";
+										// 			}
+										// 			else if(r.Staff_ID == k.Cleaner_ID)
+										// 			{
+										// 				r.Present_Status="Present";
+										// 			}
+										// 			else
+										// 			{
+										// 				r.Present_Status="Absent";
+										// 			}
+										// 		}
+										// 		else
+										// 		{
+										// 			r.Present_Status="Absent";
+										// 		}
+										// 	}
+										// }
+					)
+					}
+				}
+			}
+			Salary_Pay_Alart as "Salary Pay Alart"
+			{
+				type =  schedule
+				start = "2025-09-26 01:00:00"
+				frequency = daily
+				time zone = "Asia/Kolkata"
+				on start
+				{
+					actions 
+					{
+					on load
+					(
+						new = Salary_Master[ID != null];
+										for each  rec in new
+										{
+											rec.count_field=0;
+										}
+					)
+					}
+				}
+			}
+			summa as "summa"
+			{
+				type =  schedule
+				start = "2025-10-04 23:59:59"
+				frequency = weekly
+				time zone = "Asia/Kolkata"
+				on start
+				{
+					actions 
+					{
+					on load
+					(
+						var = Bus_Register_Details[ID != null];
+										for each  rec in var
+										{
+											rec.Count_For_Schedules=0;
+										}
+										new = Bus_Routes[ID != null];
+										for each  k in new
+										{
+											k.Route_Count_For_Schedule=0;
+										}
+					)
+					}
+				}
+			}
+			Absent_Status_change as "Absent Status change"
+			{
+				type =  schedule
+					status = inactive
+				start = "2025-10-06 01:00:00"
+				frequency = daily
+				time zone = "Asia/Kolkata"
+				on start
+				{
+					actions 
+					{
+					on load
+					(
+						new = Employee_Details[ID != null];
+										var = Trip_Schedules_Ex_sub[ID != null];
+										for each  k in new
+										{
+											for each  r in var
+											{
+												if(r.Trip_Date != zoho.currentdate && k.Present_Status == "Present")
+												{
+													k.Present_Status="Absent";
+												}
+											}
+										}
+					)
+					}
+				}
+			}
+			Trip_scheduled_Change as "Trip scheduled  Change"
+			{
+				type =  schedule
+				start = "2025-10-06 01:00:00"
+				frequency = daily
+				time zone = "Asia/Kolkata"
+				on start
+				{
+					actions 
+					{
+					on load
+					(
+						new = Trip_Schedules_Ex_sub[Trip_Date < zoho.currentdate];
+										for each  rec in new
+										{
+											info rec.Trip_Date;
+											rec.Trip_Status="Completed";
+										}
+										// new = Trip_Schedules_Ex_sub[ID != null];
+										// for each  rec in new
+										// {
+										// 	if(rec.Trip_Date > zoho.currentdate)
+										// 	{
+										// 		rec.Trip_Status="Completed";
+										// 	}
+										// }
+					)
+					}
+				}
+			}
+			Change_Trip_ as "Change Trip "
+			{
+				type =  schedule
+				form = Trip_Schedules_Ex_sub[Trip_Status == "Scheduled"]
+					status = inactive
+				start = after 1 days from Trip_Date at "10:00:00"
+				time zone = "Asia/Kolkata"
+				on start
+				{
+					actions 
+					{
+					on load
+					(
+						input.Trip_Status = "Completed";
+					)
+					}
+				}
+			}
+			Apsent as "Apsent"
+			{
+				type =  schedule
+				start = "2025-10-06 01:00:00"
+				frequency = daily
+				time zone = "Asia/Kolkata"
+				on start
+				{
+					actions 
+					{
+					on load
+					(
+						var = Employee_Details[ID != null];
+										for each  rec in var
+										{
+											rec.Present_Status="Absent";
+										}
+										new = Check_in_Check_out[ID != null];
+										for each  k in new
+										{
+											if(k.Check_Out_Date_Time == null)
+											{
+												k.status="Check Out Missing";
+											}
+										}
+										ver = Employee_Details[ID != null];
+										for each  rec in ver
+										{
+											rec.Status1=0;
+										}
+					)
+					}
+				}
+			}
+			Reset_The_Check_In_And_Ch as "Reset The Check In And Check Out Count"
+			{
+				type =  schedule
+					status = inactive
+				start = "2025-10-07 01:00:00"
+				frequency = daily
+				time zone = "Asia/Kolkata"
+				on start
+				{
+					actions 
+					{
+					on load
+					(
+						new = Check_in_Check_out[ID != null];
+										for each  k in new
+										{
+											if(k.Check_Out_Date_Time == null)
+											{
+												k.status="Check Out Missing";
+											}
+										}
+										ver = Employee_Details[ID != null];
+										for each  rec in ver
+										{
+											rec.Status1=0;
+										}
+					)
+					}
+				}
+			}
+		}
+
+		approval
+		{
+			Leave_Aprovel as "Leave Aprovel"
+			{
+				type =  approval
+				form = Leave_Request
+				display fields = [Apply_Date,Employee_ID_Employee_Name,Role,Leave_Start_Date,Leave_End_Date,No_of_Days_Leave,Leave_Status]
+				on start
+				{
+				}
+				on level 1
+				{
+					on approve 
+					{
+						actions 
+						{
+							sendmail
+							(
+								from : zoho.loginuserid
+								to : approver.submitter
+								subject : "Approval Request"
+								message : "Your request has been approved."
+							)
+						}
+						actions 
+						{
+						on load
+						(
+							input.Leave_Status = "Approvel";
+												new = Trip_Schedules_Ex_sub[ID != null];
+												startdate = input.Leave_Start_Date;
+												enddate = input.Leave_End_Date;
+												emtydate = startdate;
+												no_of_days = startdate.daysBetween(enddate);
+												emty = " ".leftpad(no_of_days).toList("");
+												for each  d in emty
+												{
+													// 	info emtydate;
+													for each  k in new
+													{
+														if(k.Trip_Date == emtydate && k.Driver_ID == input.Employee_ID_Employee_Name.Staff_ID && k.Trip_Status == "Scheduled")
+														{
+															k.Driver_ID=null;
+															k.Driver_Name=null;
+														}
+														else if(k.Trip_Date == emtydate && k.Conductor_ID == input.Employee_ID_Employee_Name.Staff_ID && k.Trip_Status == "Scheduled")
+														{
+															k.Conductor_ID=null;
+															k.Conductor_Name=null;
+														}
+														else if(k.Trip_Date == emtydate && k.Cleaner_ID == input.Employee_ID_Employee_Name.Staff_ID && k.Trip_Status == "Scheduled")
+														{
+															k.Cleaner_Name=null;
+															k.Cleaner_ID=null;
+														}
+													}
+													emtydate = emtydate.addDay(1);
+												}
+						)
+						}
+					}
+					on reject
+					{
+
+						actions 
+						{
+							sendmail
+							(
+								from : zoho.loginuserid
+								to : approver.submitter
+								subject : "Approval Request"
+								message : "Your request has been rejected."
+							)
+						}
+						actions 
+						{
+						on load
+						(
+							input.Leave_Status = "Reject";
+						)
+						}
+					}
+				}
+			}
+			Check_New_Empolyee as "Check New Empolyee"
+			{
+				type =  approval
+				form = Employee_Details[Status == "Processing"]
+				display fields = [Staff_ID,Name,Role,Salary,Phone_Number1,Address]
+				on start
+				{
+				}
+				on level 1
+				{
+					on approve 
+					{
+						actions 
+						{
+							sendmail
+							(
+								from : zoho.loginuserid
+								to : approver.submitter
+								subject : "Approval Request"
+								message : "Your request has been approved."
+							)
+						}
+						actions 
+						{
+						on load
+						(
+							input.Status = "Active";
+												// Create Staff ID
+												var = Employee_Details[ID != null].count(ID);
+												input.Staff_ID = input.Role.Role.subtext(0,3).upper() + "_" + zoho.currentdate.getYear() + var;
+						)
+						}
+					}
+					on reject
+					{
+
+						actions 
+						{
+							sendmail
+							(
+								from : zoho.loginuserid
+								to : approver.submitter
+								subject : "Approval Request"
+								message : "Your request has been rejected."
+							)
+						}
+						actions 
+						{
+						on load
+						(
+							input.Status = "Reject";
+						)
+						}
+					}
+				}
+			}
+			Employee_Resignation as "Employee Resignation"
+			{
+				type =  approval
+				form = resignation_form
+				display fields = [Date_Time,Employee_ID,Name,Role,Reason]
+				on start
+				{
+				}
+				on level 1
+				{
+					on approve 
+					{
+						actions 
+						{
+							sendmail
+							(
+								from : zoho.loginuserid
+								to : approver.submitter
+								subject : "Approval Request"
+								message : "Your request has been approved."
+							)
+						}
+						actions 
+						{
+						on load
+						(
+							var = Employee_Details[ID == input.Employee_ID];
+												var.Status="Resigned";
+						)
+						}
+					}
+					on reject
+					{
+
+						actions 
+						{
+							sendmail
+							(
+								from : zoho.loginuserid
+								to : approver.submitter
+								subject : "Approval Request"
+								message : "Your request has been rejected."
+							)
+						}
+					}
+				}
+			}
+			Active_Staff_confirmation as "Active Staff confirmation"
+			{
+				type =  approval
+				form = Active_Staff_Registratione
+				display fields = [Active_Staff_ID,Auto_Number,Name,Role,Per_Day_Salary,Phone_Number,Address]
+				on start
+				{
+				}
+				on level 1
+				{
+					on approve 
+					{
+						actions 
+						{
+							sendmail
+							(
+								from : zoho.loginuserid
+								to : approver.submitter
+								subject : "Approval Request"
+								message : "Your request has been approved."
+							)
+						}
+						actions 
+						{
+						on load
+						(
+							input.Status = "Active";
+												input.Active_Staff_ID = "Active" + zoho.currentdate.getYear() + input.Auto_Number;
+						)
+						}
+					}
+					on reject
+					{
+
+						actions 
+						{
+							sendmail
+							(
+								from : zoho.loginuserid
+								to : approver.submitter
+								subject : "Approval Request"
+								message : "Your request has been rejected."
+							)
+						}
+						actions 
+						{
+						on load
+						(
+							input.Status = "Reject";
+						)
+						}
+					}
+				}
+			}
+		}
+
+
+		batchworkflow
+		{
+			Salary_Credited_massage
+			{
+    			display name = "Salary Credited massage"
+    			type = batchworkflow
+    			form = Salary_Master[Status == "Paid"]
+    			event = "On Schedule"
+    			start = "01-Sep-2025 09:00:00"
+    			frequency = monthly
+    			batch size = 1000
+			}
+		}
+
+		functions
+		{
+			check_in as "check in"
+			{
+				type =  functions
+				form = Employee_Details
+				execution type = for each record	
+				on start
+				{
+					actions 
+					{
+					on click
+					(
+						openUrl("#Form:Check_in_Check_out?Staff_ID=" + input.Staff_ID + "&Staff_Name.first_name=" + input.Name.first_name + "&Role=" + input.Role.Role + "&status=" + "Check in","popup window");
+										// openUrl("#Form:Payment?Customer_ID=" + input.Customer_ID + "&Customer_Name.first_name=" + input.Customer_Name.first_name + "&Customer_Name.last_name=" + input.Customer_Name.last_name + "&Amount=" + input.Total_Liter_Price + "&Payment_Reson=" + input.Customer_Type,"popup window");
+					)
+					}
+				}
+			}
+			check_out as "check out"
+			{
+				type =  functions
+				form = Employee_Details
+				execution type = for each record	
+				on start
+				{
+					actions 
+					{
+					on click
+					(
+						// openUrl("#Form:Check_in_Check_out?Staff_ID=" + input.Staff_ID + "&Staff_Name.first_name=" + input.Name.first_name + "&Role=" + input.Role.Role + "&status=" + "Check out","popup window");
+										// input.Status1 = null;
+										new = Check_in_Check_out[Staff_ID == input.Staff_ID && Check_Out_Date_Time == null];
+										new.Check_Out_Date_Time=zoho.currenttime;
+										new.status="Check out";
+										input.Status1 = 0;
+										input.Check_In_OR_Check_Out_Count = 0;
+					)
+					}
+				}
+			}
+			Staff_change as "Staff change"
+			{
+				type =  functions
+				form = Trip_Schedules_Ex_sub
+				execution type = for each record	
+				on start
+				{
+					actions 
+					{
+					on click
+					(
+						openUrl("#Form:Active_Staff_Allote?Bus_Number=" + input.Bus_Number + "&Date_field=" + input.Trip_Date,"popup window");
+										new = Trip_Schedules_Ex_sub[ID != null];
+										for each  rec in new
+										{
+											if(rec.Drive_Role == null && rec.Drive_Role != input.Drive_Role)
+											{
+												info "varuthu";
+											}
+										}
+					)
+					}
+				}
+			}
+			Acitve_Status_Change as "Acitve Status Change"
+			{
+				type =  functions
+				form = Bus_Register_Details
+				execution type = for each record	
+				on start
+				{
+					actions 
+					{
+					on click
+					(
+						input.Bus_Status = "Active";
+					)
+					}
+				}
+			}
+			Under_Maintenance as "Under Maintenance"
+			{
+				type =  functions
+				form = Bus_Register_Details
+				execution type = for each record	
+				on start
+				{
+					actions 
+					{
+					on click
+					(
+						input.Bus_Status = "Under Maintenance";
+					)
+					}
+				}
+			}
+			Status_Change1 as "Status Change"
+			{
+				type =  functions
+				form = Bus_Routes
+				execution type = for each record	
+				on start
+				{
+					actions 
+					{
+					on click
+					(
+						input.Route_Status = "Active";
+					)
+					}
+				}
+			}
+			Status_Change2 as "Status Change"
+			{
+				type =  functions
+				form = Bus_Routes
+				execution type = for each record	
+				on start
+				{
+					actions 
+					{
+					on click
+					(
+						input.Route_Status = "in Active";
+					)
+					}
+				}
+			}
+			Cancel_Schedules as "Cancel Schedules"
+			{
+				type =  functions
+				form = Trip_Schedules_Ex_sub
+				execution type = for each record	
+				on start
+				{
+					actions 
+					{
+					on click
+					(
+						input.Trip_Status = "Cancelled";
+										var = Employee_Details[Staff_ID == input.Driver_ID || Staff_ID == input.Conductor_ID || Staff_ID == input.Cleaner_ID].Email;
+										sendmail
+										[
+											from :zoho.adminuserid
+											to :var
+											subject :"Your trip is cancel"
+											message :"<div>Today Trip is Cancel</div>"
+										]
+					)
+					}
+				}
+			}
+		}
+	}
+	share_settings
+	{
+			"Read"
+			{
+				name = "Read"
+				type = Users_Permissions
+				permissions = {Chat:true, Predefined:true, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "This profile will have read permission for all components\n"
+			}
+			"Write"
+			{
+				name = "Write"
+				type = Users_Permissions
+				permissions = {Chat:true, Predefined:true, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "This profile will have write permission for all components\n"
+			}
+			"Administrator"
+			{
+				name = "Administrator"
+				type = Users_Permissions
+				permissions = {Chat:true, Predefined:true, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "This profile will have all the permissions.\n"
+			}
+			"Employee"
+			{
+				name = "Employee"
+				type = Users_Permissions
+				permissions = {Chat:false, Predefined:false, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "Permission for Employee\n"
+				ModulePermissions
+				{
+					Bus_Routes
+					{
+						allFieldsVisible= true 
+					}
+					Bus_Brand_Name
+					{
+						allFieldsVisible= true 
+					}
+					Trip_Schedules_Ex_sub
+					{
+						allFieldsVisible= true 
+					}
+					Employee_Pay_Details
+					{
+						allFieldsVisible= true 
+					}
+					Trip_Schedules_Form
+					{
+						allFieldsVisible= true 
+					}
+					Role_Based_Salary_Details
+					{
+						allFieldsVisible= true 
+					}
+					Upload_important_certificate_for_employees
+					{
+						allFieldsVisible= true 
+					}
+					Copy_of_Check_in_Check_out
+					{
+						allFieldsVisible= true 
+					}
+					Active_Staff_Registratione
+					{
+						allFieldsVisible= true 
+					}
+					Check_in_Check_out
+					{
+						enabled= Create,Viewall,Tab 
+						allFieldsVisible= true 
+						ReportPermissions
+						{
+							Check_in_Check_out_Report={"View"}
+						}
+					}
+					Active_Staff_Allote
+					{
+						allFieldsVisible= true 
+					}
+					Leave_Request
+					{
+						enabled= Create,Tab 
+						allFieldsVisible= true 
+					}
+					Active_Staff_Role_Base_Salary
+					{
+						allFieldsVisible= true 
+					}
+					Employee_Details
+					{
+						enabled= Create,Tab 
+						allFieldsVisible= true 
+					}
+					Salary_Master
+					{
+						allFieldsVisible= true 
+					}
+					Bus_Register_Details
+					{
+						allFieldsVisible= true 
+					}
+					Bus_Types_Master
+					{
+						allFieldsVisible= true 
+					}
+					resignation_form
+					{
+						enabled= Create,Tab 
+						allFieldsVisible= true 
+					}
+					Empolyee_Shift_Allotment
+					{
+						allFieldsVisible= true 
+					}
+					Check_in_Check_out_Page
+					{
+						enabled = tab
+					}
+				}
+			}
+			"Developer"
+			{
+				name = "Developer"
+				type = Developer
+				permissions = {Chat:false, Predefined:true, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "Developer Profile\n"
+			}
+			"Active Staffs"
+			{
+				name = "Active Staffs"
+				type = Users_Permissions
+				permissions = {Chat:false, Predefined:false, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "Active Staff Permission\n"
+				ModulePermissions
+				{
+					Bus_Routes
+					{
+						allFieldsVisible= true 
+					}
+					Bus_Brand_Name
+					{
+						allFieldsVisible= true 
+					}
+					Trip_Schedules_Ex_sub
+					{
+						allFieldsVisible= true 
+					}
+					Employee_Pay_Details
+					{
+						allFieldsVisible= true 
+					}
+					Trip_Schedules_Form
+					{
+						allFieldsVisible= true 
+					}
+					Role_Based_Salary_Details
+					{
+						allFieldsVisible= true 
+					}
+					Upload_important_certificate_for_employees
+					{
+						allFieldsVisible= true 
+					}
+					Copy_of_Check_in_Check_out
+					{
+						allFieldsVisible= true 
+					}
+					Active_Staff_Registratione
+					{
+						enabled= Create,Tab 
+						allFieldsVisible= true 
+					}
+					Check_in_Check_out
+					{
+						allFieldsVisible= true 
+					}
+					Active_Staff_Allote
+					{
+						allFieldsVisible= true 
+					}
+					Leave_Request
+					{
+						allFieldsVisible= true 
+					}
+					Active_Staff_Role_Base_Salary
+					{
+						allFieldsVisible= true 
+					}
+					Employee_Details
+					{
+						allFieldsVisible= true 
+					}
+					Salary_Master
+					{
+						allFieldsVisible= true 
+					}
+					Bus_Register_Details
+					{
+						allFieldsVisible= true 
+					}
+					Bus_Types_Master
+					{
+						allFieldsVisible= true 
+					}
+					resignation_form
+					{
+						allFieldsVisible= true 
+					}
+					Empolyee_Shift_Allotment
+					{
+						allFieldsVisible= true 
+					}
+				}
+			}
+			"Customer"
+			{
+				name = "Customer"
+				type = Customer_Portal
+				permissions = {Chat:true, Predefined:true, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "This is the default profile having only add and view permission.\n"
+			}
+			roles
+			{
+				"CEO"
+				{
+					description = "User belonging to this role can access data of all other users."
+					"Employee"
+					{
+						description = "Employee Permissions"
+					}
+					"Active Staffs"
+					{
+						description = "Active Staff Permission"
+					}
+				}
+			}
+	}
+
+	customize
+	{
+		icon
+		{
+			image = "image_1759216602786.png"
+		}
+	}
+
+	connections
+	{
+		zoho_oauth_connection
+		(
+			displayname = "Zoho Work Drive"
+			connector = zoho_oauth
+			permissions = {"WorkDrive.files.CREATE"}
+		)
+		zoho_people_connection
+		(
+			displayname = "Zoho People Connection"
+			connector = zohopeople
+			permissions = {"all_performance_operations","attendance_full_access","automation_full_access","create_record","employee_full_access","fetch_all_records","fetch_record","leave_full_access","sync_records","timetracker_full_access","update_record"}
+		)
+	}
+	web
+	{
+		forms
+		{
+			form Active_Staff_Allote
+			{
+				label placement = left
+			}
+			form Active_Staff_Registratione
+			{
+				label placement = left
+			}
+			form Active_Staff_Role_Base_Salary
+			{
+				label placement = left
+			}
+			form Bus_Brand_Name
+			{
+				label placement = left
+			}
+			form Bus_Register_Details
+			{
+				label placement = left
+			}
+			form Bus_Routes
+			{
+				label placement = left
+			}
+			form Bus_Types_Master
+			{
+				label placement = left
+			}
+			form Check_in_Check_out
+			{
+				label placement = left
+			}
+			form Copy_of_Check_in_Check_out
+			{
+				label placement = left
+			}
+			form Copy_Of_Employee_State_Less_Form
+			{
+				label placement = left
+			}
+			form Employee_Details
+			{
+				label placement = left
+			}
+			form Employee_Pay_Details
+			{
+				label placement = left
+			}
+			form Empolyee_Shift_Allotment
+			{
+				label placement = left
+			}
+			form Feed_Back_Form
+			{
+				label placement = left
+			}
+			form Leave_Request
+			{
+				label placement = left
+			}
+			form resignation_form
+			{
+				label placement = left
+			}
+			form Role_Based_Salary_Details
+			{
+				label placement = left
+			}
+			form Salary_Master
+			{
+				label placement = left
+			}
+			form Trip_Schedules_Ex_sub
+			{
+				label placement = left
+			}
+			form Trip_Schedules_Form
+			{
+				label placement = left
+			}
+			form Upload_important_certificate_for_employees
+			{
+				label placement = left
+			}
+		}
+		reports
+		{
+			report Bus_Types_Master_Report
+			{
+				quickview
+				(
+					layout
+					(
+		 				type = -1
+						datablock1
+						(
+							layout type = -1
+							fields
+							(
+								Bus_Type as "Bus Type"
+							)
+						)
+					)
+					menu
+    				(
+    	 				header
+    	 				(
+    		 				Edit 
+    		 				Duplicate 
+    		 				Delete 
+    	 				)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+    				)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+		 				type = 1
+						datablock1
+						(
+							layout type = -2
+							fields
+							(
+								Bus_Type as "Bus Type"
+							)
+						)
+					)
+					menu
+    				(
+    	 				header
+    	 				(
+    		 				Edit 
+    		 				Duplicate 
+    		 				Delete 
+    	 				)
+    				)
+				)
+			}
+			report All_Bus_Brand_Names
+			{
+				quickview
+				(
+					layout
+					(
+		 				type = -1
+						datablock1
+						(
+							layout type = -1
+							fields
+							(
+								Brand_Name as "Brand Name"
+							)
+						)
+					)
+					menu
+    				(
+    	 				header
+    	 				(
+    		 				Edit 
+    		 				Duplicate 
+    		 				Delete 
+    	 				)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+    				)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+		 				type = 1
+						datablock1
+						(
+							layout type = -2
+							fields
+							(
+								Brand_Name as "Brand Name"
+							)
+						)
+					)
+					menu
+    				(
+    	 				header
+    	 				(
+    		 				Edit 
+    		 				Duplicate 
+    		 				Delete 
+    	 				)
+    				)
+				)
+			}
+			report All_Bus_Register_Details
+			{
+				quickview
+				(
+					layout
+					(
+		 				type = 2
+						datablock1
+						(
+							layout type = 4
+							fields
+							(
+								Bus_ID as "Bus ID"
+								Bus_Registration_Number as "Bus Registration Number"
+								Bus_Status as "Bus Status"
+								Brand_Name as "Brand Name"
+								Seating_Capacity as "Seating Capacity"
+							)
+						)
+					)
+					menu
+    				(
+    	 				header
+    	 				(
+    		 				Edit 
+    		 				Duplicate 
+    		 				Delete 
+    	 				)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+							"Active"
+							"Under Maintenance"
+    					)
+    				)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+		 				type = 1
+						datablock1
+						(
+							layout type = -2
+							fields
+							(
+								Bus_ID as "Bus ID"
+								Auto_Number as "Auto Number"
+								Bus_Type as "Bus Type"
+								Brand_Name as "Brand Name"
+								Seating_Capacity as "Seating Capacity"
+								Bus_Status as "Bus Status"
+								Bus_Registration_Number as "Bus Registration Number"
+								Uplode_RC_Book as "Uplode RC Book"
+								Count_For_Schedules as "Count For Schedules"
+								"Active"
+								"Under Maintenance"
+							)
+						)
+					)
+					menu
+    				(
+    	 				header
+    	 				(
+    		 				Edit 
+    		 				Duplicate 
+    		 				Delete 
+    	 				)
+    				)
+				)
+			}
+			report Role_Based_Salary_Details_Report
+			{
+				quickview
+				(
+					layout
+					(
+		 				type = 1
+						datablock1
+						(
+							layout type = 1
+							fields
+							(
+								Role as "Role "
+								Salary
+							)
+						)
+					)
+					menu
+    				(
+    	 				header
+    	 				(
+    		 				Edit 
+    		 				Duplicate 
+    		 				Delete 
+    	 				)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+    				)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+		 				type = 1
+						datablock1
+						(
+							layout type = -2
+							fields
+							(
+								Role as "Role "
+								Salary
+							)
+						)
+					)
+					menu
+    				(
+    	 				header
+    	 				(
+    		 				Edit 
+    		 				Duplicate 
+    		 				Delete 
+    	 				)
+    				)
+				)
+			}
+			report All_Employee_Details
+			{
+				quickview
+				(
+					layout
+					(
+		 				type = 6
+						datablock1
+						(
+							layout type = 19
+							fields
+							(
+								Employee_Image as "Employee Image"
+								Staff_ID as "Staff ID"
+								Name
+								Role
+								Phone_Number1 as "Phone Number"
+							)
+						)
+					)
+					menu
+    				(
+    	 				header
+    	 				(
+    		 				Edit 
+    		 				Duplicate 
+    		 				Delete 
+    	 				)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+    				)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+		 				type = 1
+						datablock1
+						(
+							layout type = -2
+							fields
+							(
+								Staff_ID as "Staff ID"
+								Name
+								Role
+								Phone_Number1 as "Phone Number"
+								Address
+								Joing_Date as "Joing Date"
+								Status
+								Salary
+								Date_of_Birth as "Date of Birth"
+								Status1
+								Email
+								Uplode_Driving_Licence as "Uplode Driving Licence"
+								Driving_Licence_Number as "Driving Licence Number"
+								Uplode_ID_Proof as "Uplode ID Proof"
+								Present_Status as "Present Status"
+								Employee_Image as "Employee Image"
+								Check_In_OR_Check_Out_Count as "Check In OR Check Out Count"
+							)
+						)
+					)
+					menu
+    				(
+    	 				header
+    	 				(
+    		 				Edit 
+    		 				Duplicate 
+    		 				Delete 
+    	 				)
+    				)
+				)
+			}
+			report All_Bus_Routes
+			{
+				quickview
+				(
+					layout
+					(
+		 				type = 1
+						datablock1
+						(
+							layout type = 1
+							fields
+							(
+								Start_Location as "Start Location"
+								End_Location as "End Location"
+							)
+						)
+					)
+					menu
+    				(
+    	 				header
+    	 				(
+    		 				Edit 
+    		 				Duplicate 
+    		 				Delete 
+    	 				)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+							"Active"
+							" In Active"
+    					)
+    				)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+		 				type = 1
+						datablock1
+						(
+							layout type = -2
+							fields
+							(
+								Route_ID as "Route ID"
+								Auto_Number as "Auto Number"
+								Start_Location as "Start Location"
+								End_Location as "End Location"
+								Route_Status as "Route Status"
+								Route_Count_For_Schedule as "Route Count For Schedule"
+								"Active"
+								" In Active"
+							)
+						)
+					)
+					menu
+    				(
+    	 				header
+    	 				(
+    		 				Edit 
+    		 				Duplicate 
+    		 				Delete 
+			 				"Active"
+			 				" In Active"
+    	 				)
+    				)
+				)
+			}
+			report All_Trip_Schedules_Reports
+			{
+				quickview
+				(
+					layout
+					(
+		 				type = -1
+						datablock1
+						(
+							layout type = -1
+							fields
+							(
+								Bus_Number as "Bus Number"
+								Trip_Date as "Trip Date"
+								Trip_Day as "Trip Day"
+								Driver_ID as "Driver ID "
+								Conductor_ID as "Conductor ID"
+								Cleaner_ID as "Cleaner ID"
+								Driver_Name as "Driver Name"
+								Conductor_Name as "Conductor Name"
+								Trip_Status as "Trip Status"
+								"Change Staff"
+								"Cancel Trip"
+							)
+						)
+					)
+					menu
+    				(
+    	 				header
+    	 				(
+    		 				Edit 
+    		 				Duplicate 
+    		 				Delete 
+    	 				)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+    				)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+		 				type = 1
+						datablock1
+						(
+							layout type = -2
+							fields
+							(
+								Trip_Date as "Trip Date"
+								Trip_Status as "Trip Status"
+								Trip_Day as "Trip Day"
+								Driver_ID as "Driver ID "
+								Conductor_ID as "Conductor ID"
+								Cleaner_ID as "Cleaner ID"
+								Driver_Name as "Driver Name"
+								Conductor_Name as "Conductor Name"
+								Cleaner_Name as "Cleaner Name"
+								Bus_Number as "Bus Number"
+								Drive_Role as "Role"
+								Conductor_Role as "Role"
+								Cleaner_Role as "Role"
+							)
+						)
+					)
+					menu
+    				(
+    	 				header
+    	 				(
+    		 				Edit 
+    		 				Duplicate 
+    		 				Delete 
+    	 				)
+    				)
+				)
+			}
+			report Check_in_Check_out_Report
+			{
+				quickview
+				(
+					layout
+					(
+		 				type = Custom
+		 				selectedlayout = "Custom Layout 2"
+					)
+					menu
+    				(
+    	 				header
+    	 				(
+    		 				Edit 
+    		 				Duplicate 
+    		 				Delete 
+    	 				)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+    				)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+		 				type = 2
+						datablock1
+						(
+							layout type = -2
+		     				title = "Overview"
+							fields
+							(
+								Role
+								status
+								Check_In_Date_Time as "Check In Date-Time"
+								Check_in_Check_out_ID as "Check in & Check out ID"
+								Staff_ID as "Staff ID"
+								Staff_Name as "Staff Name"
+								Check_Out_Date_Time as "Check Out Date-Time"
+							)
+						)
+					)
+					menu
+    				(
+    	 				header
+    	 				(
+    		 				Edit 
+    		 				Duplicate 
+    		 				Delete 
+    	 				)
+    				)
+				)
+			}
+			report report_for_pages
+			{
+				quickview
+				(
+					layout
+					(
+		 				type = -1
+						datablock1
+						(
+							layout type = -1
+							fields
+							(
+								Staff_ID as "Staff ID"
+								Name
+								Role
+								"Check in"
+								"Check out"
+								Status1
+							)
+						)
+					)
+					menu
+    				(
+    	 				header
+    	 				(
+    	 				)
+    				)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+		 				type = 1
+						datablock1
+						(
+							layout type = -2
+							fields
+							(
+								Staff_ID as "Staff ID"
+								Name
+								Date_of_Birth as "Date of Birth"
+								Role
+								Salary
+								Phone_Number1 as "Phone Number"
+								Address
+								Joing_Date as "Joing Date"
+								Status
+							)
+						)
+					)
+					menu
+    				(
+    	 				header
+    	 				(
+    	 				)
+    				)
+				)
+			}
+			report Trip_Schedules_Repore
+			{
+				quickview
+				(
+					layout
+					(
+		 				type = -1
+						datablock1
+						(
+							layout type = -1
+							fields
+							(
+								Trip_Schedules_Date as "Trip Schedules Date"
+								Bus_ID_Bus_Number as "Bus ID & Bus Number"
+								Routes_ID_Route_Location as "Routes ID & Route Location"
+								Trip_ID as "Trip ID"
+								Auto_Number as "Auto Number"
+							)
+						)
+					)
+					menu
+    				(
+    	 				header
+    	 				(
+    		 				Edit 
+    		 				Duplicate 
+    		 				Delete 
+    	 				)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+    				)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+		 				type = 1
+						datablock1
+						(
+							layout type = -2
+							fields
+							(
+								Trip_Schedules_Date as "Trip Schedules Date"
+								Bus_ID_Bus_Number as "Bus ID & Bus Number"
+								Routes_ID_Route_Location as "Routes ID & Route Location"
+								Trip_ID as "Trip ID"
+								Auto_Number as "Auto Number"
+							)
+						)
+					)
+					menu
+    				(
+    	 				header
+    	 				(
+    		 				Edit 
+    		 				Duplicate 
+    		 				Delete 
+    	 				)
+    				)
+				)
+			}
+			report All_Empolyee_Shift_Allotments
+			{
+				quickview
+				(
+					layout
+					(
+		 				type = -2
+	     				recordsperrow = 2
+						datablock1
+						(
+							layout type = -2
+							fields
+							(
+								Bus_ID_Bus_Registration_Number as "Bus ID & Bus Registration Number"
+								Shift_Days as "Shift Days"
+								Driver_ID as "Driver ID"
+								Conductor_ID as "Conductor ID"
+								Cleaner_ID as "Cleaner ID"
+							)
+						)
+					)
+					menu
+    				(
+    	 				header
+    	 				(
+    		 				Edit 
+    		 				Duplicate 
+    		 				Delete 
+    	 				)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+    				)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+		 				type = 1
+						datablock1
+						(
+							layout type = -2
+							fields
+							(
+								Driver_ID as "Driver ID"
+								Shift_Days as "Shift Days"
+								Conductor_ID as "Conductor ID"
+								Cleaner_ID as "Cleaner ID"
+								Bus_ID_Bus_Registration_Number as "Bus ID & Bus Registration Number"
+								Driver_Name as "Driver Name"
+								Conductor_Name as "Conductor Name"
+								Cleaner_Name as "Cleaner Name"
+							)
+						)
+					)
+					menu
+    				(
+    	 				header
+    	 				(
+    		 				Edit 
+    		 				Duplicate 
+    		 				Delete 
+    	 				)
+    				)
+				)
+			}
+			report All_Leave_Requests
+			{
+				quickview
+				(
+					layout
+					(
+		 				type = 6
+						datablock1
+						(
+							layout type = 23
+							fields
+							(
+								Employee_ID_Employee_Name.Employee_Image as "Employee Image"
+								Leave_Start_Date as "Leave Start Date"
+								Employee_ID_Employee_Name.Staff_ID as "Staff ID"
+								Employee_ID_Employee_Name.Email as "Email"
+								Employee_ID_Employee_Name.Phone_Number1 as "Phone Number"
+							)
+						)
+					)
+					menu
+    				(
+    	 				header
+    	 				(
+    		 				Edit 
+    		 				Duplicate 
+    		 				Delete 
+    	 				)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+    				)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+		 				type = 1
+						datablock1
+						(
+							layout type = -2
+							fields
+							(
+								Apply_Date as "Apply Date"
+								Employee_ID_Employee_Name as "Employee ID& Employee Name"
+								Role
+								Leave_Start_Date as "Leave Start Date"
+								Leave_End_Date as "Leave End Date"
+								No_of_Days_Leave as "No of Days Leave"
+								Leave_Status as "Leave Status"
+								Bus_Number as "Bus Number"
+							)
+						)
+					)
+					menu
+    				(
+    	 				header
+    	 				(
+    		 				Edit 
+    		 				Duplicate 
+    		 				Delete 
+    	 				)
+    				)
+				)
+			}
+			report Active_Staff_Registration_Report
+			{
+				quickview
+				(
+					layout
+					(
+		 				type = 2
+						datablock1
+						(
+							layout type = 4
+							fields
+							(
+								Active_Staff_ID as "Active Staff ID"
+								Name
+								Role
+								Phone_Number as "Phone Number"
+								Per_Day_Salary as "Per Day Salary"
+							)
+						)
+					)
+					menu
+    				(
+    	 				header
+    	 				(
+    		 				Edit 
+    		 				Duplicate 
+    		 				Delete 
+    	 				)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+    				)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+		 				type = 1
+						datablock1
+						(
+							layout type = -2
+							fields
+							(
+								Active_Staff_ID as "Active Staff ID"
+								Auto_Number as "Auto Number"
+								Name
+								Role
+								Per_Day_Salary as "Per Day Salary"
+								Phone_Number as "Phone Number"
+								Address
+								Status
+								Uplode_Driving_Licence as "Uplode Driving Licence"
+								Driving_Licence_Number as "Driving Licence Number"
+							)
+						)
+					)
+					menu
+    				(
+    	 				header
+    	 				(
+    		 				Edit 
+    		 				Duplicate 
+    		 				Delete 
+    	 				)
+    				)
+				)
+			}
+			report All_Active_Staff_Role_Base_Salaries
+			{
+				quickview
+				(
+					layout
+					(
+		 				type = 1
+						datablock1
+						(
+							layout type = 1
+							fields
+							(
+								Role
+								Salary
+							)
+						)
+					)
+					menu
+    				(
+    	 				header
+    	 				(
+    		 				Edit 
+    		 				Duplicate 
+    		 				Delete 
+    	 				)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+    				)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+		 				type = 1
+						datablock1
+						(
+							layout type = -2
+							fields
+							(
+								Role
+								Salary
+							)
+						)
+					)
+					menu
+    				(
+    	 				header
+    	 				(
+    		 				Edit 
+    		 				Duplicate 
+    		 				Delete 
+    	 				)
+    				)
+				)
+			}
+			report All_Employee_Pay_Details
+			{
+				quickview
+				(
+					layout
+					(
+		 				type = -2
+	     				recordsperrow = 2
+						datablock1
+						(
+							layout type = -2
+							fields
+							(
+								Transection_Date_Time as "Transection Date & Time"
+								Employee_Name as "Employee Name"
+								Role
+								Employee_ID as "Employee ID"
+								Salary
+								Email
+							)
+						)
+					)
+					menu
+    				(
+    	 				header
+    	 				(
+    		 				Edit 
+    		 				Duplicate 
+    		 				Delete 
+    	 				)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+    				)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+		 				type = 1
+						datablock1
+						(
+							layout type = -2
+							fields
+							(
+								Transection_Date_Time as "Transection Date & Time"
+								Employee_Name as "Employee Name"
+								Role
+								Employee_ID as "Employee ID"
+								Salary
+								Email
+							)
+						)
+					)
+					menu
+    				(
+    	 				header
+    	 				(
+    		 				Edit 
+    		 				Duplicate 
+    		 				Delete 
+    	 				)
+    				)
+				)
+			}
+			report All_Salary_Masters
+			{
+				quickview
+				(
+					layout
+					(
+		 				type = -1
+						datablock1
+						(
+							layout type = -1
+							fields
+							(
+								Transection_ID as "Transection ID"
+								Auto_Number as "Auto Number"
+								Status as "Status "
+								count_field as "count"
+							)
+						)
+					)
+					menu
+    				(
+    	 				header
+    	 				(
+    		 				Edit 
+    		 				Duplicate 
+    		 				Delete 
+    	 				)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+    				)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+		 				type = 1
+						datablock1
+						(
+							layout type = -2
+							fields
+							(
+								Transection_ID as "Transection ID"
+								Auto_Number as "Auto Number"
+								Status as "Status "
+								count_field as "count"
+							)
+						)
+					)
+					menu
+    				(
+    	 				header
+    	 				(
+    		 				Edit 
+    		 				Duplicate 
+    		 				Delete 
+    	 				)
+    				)
+				)
+			}
+			report All_Active_Staffs_Allote
+			{
+				quickview
+				(
+					layout
+					(
+		 				type = -1
+						datablock1
+						(
+							layout type = -1
+							fields
+							(
+								Active_Staff_ID as "Active Staff ID"
+								Name
+								Role3 as "Role"
+								Bus_Number as "Bus Number"
+								Date_field as "Date"
+							)
+						)
+					)
+					menu
+    				(
+    	 				header
+    	 				(
+    		 				Edit 
+    		 				Duplicate 
+    		 				Delete 
+    	 				)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+    				)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+		 				type = 1
+						datablock1
+						(
+							layout type = -2
+							fields
+							(
+								Active_Staff_ID as "Active Staff ID"
+								Name
+								Role3 as "Role"
+								Bus_Number as "Bus Number"
+								Date_field as "Date"
+							)
+						)
+					)
+					menu
+    				(
+    	 				header
+    	 				(
+    		 				Edit 
+    		 				Duplicate 
+    		 				Delete 
+    	 				)
+    				)
+				)
+			}
+			report Upload_important_certificate_for_employees_Report
+			{
+				quickview
+				(
+					layout
+					(
+		 				type = -1
+						datablock1
+						(
+							layout type = -1
+							fields
+							(
+								Medical_Fitness_Certificate as "Medical & Fitness Certificate"
+								Criminal_Record_Police_Verification as "Criminal Record / Police Verification"
+								Proof_of_experience as "Proof of experience"
+							)
+						)
+					)
+					menu
+    				(
+    	 				header
+    	 				(
+    		 				Edit 
+    		 				Duplicate 
+    		 				Delete 
+    	 				)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+    				)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+		 				type = 1
+						datablock1
+						(
+							layout type = -2
+							fields
+							(
+								Medical_Fitness_Certificate as "Medical & Fitness Certificate"
+								Criminal_Record_Police_Verification as "Criminal Record / Police Verification"
+								Proof_of_experience as "Proof of experience"
+							)
+						)
+					)
+					menu
+    				(
+    	 				header
+    	 				(
+    		 				Edit 
+    		 				Duplicate 
+    		 				Delete 
+    	 				)
+    				)
+				)
+			}
+			report All_Resignations
+			{
+				quickview
+				(
+					layout
+					(
+		 				type = -1
+						datablock1
+						(
+							layout type = -1
+							fields
+							(
+								Employee_ID as "Employee ID"
+								Name
+								Role
+								Reason
+								Date_Time as "Date-Time"
+							)
+						)
+					)
+					menu
+    				(
+    	 				header
+    	 				(
+    		 				Edit 
+    		 				Duplicate 
+    		 				Delete 
+    	 				)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+    				)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+		 				type = 1
+						datablock1
+						(
+							layout type = -2
+							fields
+							(
+								Employee_ID as "Employee ID"
+								Name
+								Role
+								Reason
+								Date_Time as "Date-Time"
+							)
+						)
+					)
+					menu
+    				(
+    	 				header
+    	 				(
+    		 				Edit 
+    		 				Duplicate 
+    		 				Delete 
+    	 				)
+    				)
+				)
+			}
+			report Trip_Count_For_Employee
+			{
+				quickview
+				(
+					layout
+					(
+		 				type = -1
+						datablock1
+						(
+							layout type = -1
+							fields
+							(
+								Trip_Date as "Trip Date"
+								Trip_Day as "Trip Day"
+								Bus_Number as "Bus Number"
+								Driver_ID as "Driver ID "
+								Driver_Name as "Driver Name"
+								Conductor_ID as "Conductor ID"
+								Conductor_Name as "Conductor Name"
+								Cleaner_ID as "Cleaner ID"
+								Cleaner_Name as "Cleaner Name"
+								Trip_Status as "Trip Status"
+							)
+						)
+					)
+					menu
+    				(
+    	 				header
+    	 				(
+    		 				Edit 
+    		 				Duplicate 
+    		 				Delete 
+    	 				)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+    				)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+		 				type = 1
+						datablock1
+						(
+							layout type = -2
+							fields
+							(
+								Trip_Date as "Trip Date"
+								Trip_Day as "Trip Day"
+								Bus_Number as "Bus Number"
+								Driver_ID as "Driver ID "
+								Driver_Name as "Driver Name"
+								Drive_Role as "Role"
+								Conductor_ID as "Conductor ID"
+								Conductor_Name as "Conductor Name"
+								Conductor_Role as "Role"
+								Cleaner_ID as "Cleaner ID"
+								Cleaner_Name as "Cleaner Name"
+								Cleaner_Role as "Role"
+								Trip_Status as "Trip Status"
+							)
+						)
+					)
+					menu
+    				(
+    	 				header
+    	 				(
+    		 				Edit 
+    		 				Duplicate 
+    		 				Delete 
+    	 				)
+    				)
+				)
+			}
+			report Feed_Back_Form_Report
+			{
+				quickview
+				(
+					layout
+					(
+		 				type = -1
+						datablock1
+						(
+							layout type = -1
+							fields
+							(
+								Name
+								Email
+								Message
+							)
+						)
+					)
+					menu
+    				(
+    	 				header
+    	 				(
+    		 				Edit 
+    		 				Duplicate 
+    		 				Delete 
+    	 				)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+    				)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+		 				type = 1
+						datablock1
+						(
+							layout type = -2
+							fields
+							(
+								Name
+								Email
+								Message
+							)
+						)
+					)
+					menu
+    				(
+    	 				header
+    	 				(
+    		 				Edit 
+    		 				Duplicate 
+    		 				Delete 
+    	 				)
+    				)
+				)
+			}
+			report Employee_Roles
+			{
+				legend = RIGHT
+			}
+ 
+			report Trip_Graph
+			{
+				legend = RIGHT
+			}
+		}
+		menu
+		{
+			unused
+			{
+				form  Employee_Pay_Details
+				{
+					icon = "business-payment"
+				}
+				report All_Salary_Masters
+				{
+					icon = "tech-desktop"
+				}
+				page Owner_Dashboard1
+				{
+					icon = "ui-1-dashboard-half"
+				}
+				form  Bus_Brand_Name
+				{
+					icon = "transportation-bus"
+				}
+				report All_Bus_Brand_Names
+				{
+					icon = "tech-desktop"
+				}
+				form  Bus_Types_Master
+				{
+					icon = "design-web-design"
+				}
+				report Trip_Schedules_Repore
+				{
+					icon = "tech-desktop"
+				}
+				report report_for_pages
+				{
+					icon = "users-2-contacts-44"
+				}
+				form  Upload_important_certificate_for_employees
+				{
+					icon = "business-money-bag"
+				}
+				report Bus_Types_Master_Report
+				{
+					icon = "tech-desktop"
+				}
+ 
+				report Employee_Roles
+				{
+					icon = "users-2-contacts-44"
+				}
+				form  Copy_of_Check_in_Check_out
+				{
+					icon = "tech-desktop"
+				}
+				form  Check_in_Check_out
+				{
+					icon = "shopping-pos"
+				}
+ 
+				report Trip_Graph
+				{
+					icon = "transportation-plane-17"
+				}
+				report Trip_Count_For_Employee
+				{
+					icon = "tech-desktop"
+				}
+				form  Trip_Schedules_Ex_sub
+				{
+					icon = "transportation-plane-17"
+				}
+				form  Copy_Of_Employee_State_Less_Form
+				{
+					icon = "tech-desktop"
+				}
+				report All_Active_Staffs_Allote
+				{
+					icon = "tech-desktop"
+				}
+				systemcomponent
+				{
+					type = localization
+					displayname = "Language Selection"
+					icon = "education-language"
+				}
+				systemcomponent
+				{
+					type = connection
+					displayname = "Integrations"
+					icon = "tech-2-connection"
+				}
+				form  Feed_Back_Form
+				{
+					icon = "objects-skull"
+				}
+				report Feed_Back_Form_Report
+				{
+					icon = "tech-desktop"
+				}
+				form  Active_Staff_Allote
+				{
+					icon = "holidays-sickle"
+				}
+				page widget
+				{
+					icon = "tech-desktop"
+				}
+			}
+			space Test_Space
+			{
+				displayname = "Test Space"
+				icon = "objects-spaceship"
+
+			}
+			space Main_Page
+			{
+				displayname = "Main Page"
+				icon = "objects-spaceship"
+
+					page Home_Page
+					{
+						icon = "education-book-bookmark"
+					}
+					page Owner_Dashboard
+					{
+						icon = "education-flask"
+					}
+			}
+			space Bus_Details
+			{
+				displayname = "Bus Details"
+				icon = "objects-spaceship"
+
+				section Bus_Register_Details
+				{
+					displayname = "Bus Register Details"
+					icon = "transportation-bus"
+					form  Bus_Register_Details
+					{
+						icon = "transportation-bus"
+					}
+					report All_Bus_Register_Details
+					{
+						icon = "tech-desktop"
+					}
+				}
+				section Bus_Routes
+				{
+					displayname = "Bus Routes"
+					icon = "transportation-bus"
+					form  Bus_Routes
+					{
+						icon = "transportation-bus"
+					}
+					report All_Bus_Routes
+					{
+						icon = "tech-desktop"
+					}
+				}
+				section SharedAnalytics_Section
+				{
+					type = shared_user_report_section
+					displayname = "Reports"
+					icon = "business-chart-bar-33"
+				}
+			}
+			space Trip_Schedule
+			{
+				displayname = "Trip Schedule"
+				icon = "objects-spaceship"
+
+				section Trip_Schedules_Forms
+				{
+					displayname = "Trip Schedules Forms"
+					icon = "education-flask"
+					form  Trip_Schedules_Form
+					{
+						icon = "design-2-form"
+					}
+					report All_Trip_Schedules_Reports
+					{
+						icon = "tech-desktop"
+					}
+					page Employee_Trip_View_Details
+					{
+						icon = "users-2-contacts-44"
+					}
+				}
+				section Empolyee_Shift_Allotments
+				{
+					displayname = "Empolyee Shift Allotments"
+					icon = "shopping-cash-register"
+					form  Empolyee_Shift_Allotment
+					{
+						icon = "shopping-mobile-card"
+					}
+					report All_Empolyee_Shift_Allotments
+					{
+						icon = "tech-desktop"
+					}
+				}
+			}
+			space Employee
+			{
+				displayname = "Employee"
+				icon = "objects-spaceship"
+
+				section Employee_Details
+				{
+					displayname = "Employee Details"
+					icon = "users-2-contacts-44"
+					form  Employee_Details
+					{
+						icon = "users-2-contacts-44"
+					}
+					report All_Employee_Details
+					{
+						icon = "tech-desktop"
+					}
+					page Employee_ID_Card
+					{
+						icon = "shopping-hand-card"
+					}
+					report Upload_important_certificate_for_employees_Report
+					{
+						icon = "tech-desktop"
+					}
+				}
+				section Check_in_Check_out
+				{
+					displayname = "Check in & Check out"
+					icon = "shopping-pos"
+					page Check_in_Check_out_Page
+					{
+						icon = "shopping-pos"
+					}
+					report Check_in_Check_out_Report
+					{
+						icon = "tech-desktop"
+					}
+				}
+				section Role_Based_Salary_Details
+				{
+					displayname = "Role Based Salary Details"
+					icon = "users-2-contacts-44"
+					form  Role_Based_Salary_Details
+					{
+						icon = "users-2-contacts-44"
+					}
+					report Role_Based_Salary_Details_Report
+					{
+						icon = "tech-desktop"
+					}
+				}
+			}
+			space Active_Staff
+			{
+				displayname = "Active Staff"
+				icon = "objects-spaceship"
+
+				section Active_Staff_Registration
+				{
+					displayname = "Active  Staff Registration"
+					icon = "tech-2-l-check"
+					form  Active_Staff_Registratione
+					{
+						icon = "tech-2-l-check"
+					}
+					report Active_Staff_Registration_Report
+					{
+						icon = "tech-desktop"
+					}
+				}
+				section Active_Staff_Role_Base_Salaries
+				{
+					displayname = "Active Staff Role Base Salaries"
+					icon = "holidays-sickle"
+					form  Active_Staff_Role_Base_Salary
+					{
+						icon = "holidays-sickle"
+					}
+					report All_Active_Staff_Role_Base_Salaries
+					{
+						icon = "tech-desktop"
+					}
+				}
+			}
+			space Leave_Request
+			{
+				displayname = "Leave Request"
+				icon = "objects-spaceship"
+
+				section Leave_Requests
+				{
+					displayname = "Leave Requests"
+					icon = "business-money-12"
+					form  Leave_Request
+					{
+						icon = "media-1-action-74"
+					}
+					report All_Leave_Requests
+					{
+						icon = "tech-desktop"
+					}
+				}
+			}
+			space Employee_Resignation
+			{
+				displayname = "Employee Resignation"
+				icon = "objects-spaceship"
+
+				section Resignations
+				{
+					displayname = "Resignations"
+					icon = "ui-1-calendar-grid-61"
+					form  resignation_form
+					{
+						icon = "design-2-form"
+					}
+					report All_Resignations
+					{
+						icon = "tech-desktop"
+					}
+				}
+			}
+			space Salary
+			{
+				displayname = "Salary"
+				icon = "objects-spaceship"
+
+				section Salary_Masters
+				{
+					displayname = "Salary Masters"
+					icon = "business-payment"
+					form  Salary_Master
+					{
+						icon = "sport-crown"
+					}
+					report All_Employee_Pay_Details
+					{
+						icon = "tech-desktop"
+					}
+				}
+			}
+			space Approvals
+			{
+				displayname = "Approvals"
+				icon = "objects-spaceship"
+
+				section Approvals
+				{
+					displayname = "Approvals"
+					icon = "ui-2-hourglass"
+					systemcomponent
+					{
+						type = approval
+						approval status = pending
+						displayname = "Pending Tasks"
+						icon = "ui-2-hourglass"
+					}
+					systemcomponent
+					{
+						type = approval
+						approval status = completed
+						displayname = "Completed Tasks"
+						icon = "design-todo"
+					}
+				}
+			}
+			preference
+			{
+				icon
+				{
+					style = outline
+					show = {section,component}
+				}
+			}
+		}
+		customize
+		{
+			new theme = 4
+			font = "lato"
+			color options
+			{
+				color = "5"
+			}
+			logo
+			{
+				preference = "app_icon"
+				placement = "left"
+			}
+		}
+	}
+	phone
+	{
+		forms
+		{
+			form Active_Staff_Allote
+			{
+				label placement = auto
+			}
+			form Active_Staff_Registratione
+			{
+				label placement = auto
+			}
+			form Active_Staff_Role_Base_Salary
+			{
+				label placement = auto
+			}
+			form Bus_Brand_Name
+			{
+				label placement = auto
+			}
+			form Bus_Register_Details
+			{
+				label placement = auto
+			}
+			form Bus_Routes
+			{
+				label placement = auto
+			}
+			form Bus_Types_Master
+			{
+				label placement = auto
+			}
+			form Check_in_Check_out
+			{
+				label placement = auto
+			}
+			form Copy_of_Check_in_Check_out
+			{
+				label placement = auto
+			}
+			form Copy_Of_Employee_State_Less_Form
+			{
+				label placement = auto
+			}
+			form Employee_Details
+			{
+				label placement = auto
+			}
+			form Employee_Pay_Details
+			{
+				label placement = auto
+			}
+			form Empolyee_Shift_Allotment
+			{
+				label placement = auto
+			}
+			form Feed_Back_Form
+			{
+				label placement = auto
+			}
+			form Leave_Request
+			{
+				label placement = auto
+			}
+			form resignation_form
+			{
+				label placement = auto
+			}
+			form Role_Based_Salary_Details
+			{
+				label placement = auto
+			}
+			form Salary_Master
+			{
+				label placement = auto
+			}
+			form Trip_Schedules_Ex_sub
+			{
+				label placement = auto
+			}
+			form Trip_Schedules_Form
+			{
+				label placement = auto
+			}
+			form Upload_important_certificate_for_employees
+			{
+				label placement = auto
+			}
+		}
+		customize
+		{
+			layout = slidingpane
+			font = "default"
+			style = "3"
+			color options
+			{
+				color = turquoise
+			}
+			logo
+			{
+				preference = "none"
+			}
+		}
+	}
+	tablet
+	{
+		forms
+		{
+			form Active_Staff_Allote
+			{
+				label placement = auto
+			}
+			form Active_Staff_Registratione
+			{
+				label placement = auto
+			}
+			form Active_Staff_Role_Base_Salary
+			{
+				label placement = auto
+			}
+			form Bus_Brand_Name
+			{
+				label placement = auto
+			}
+			form Bus_Register_Details
+			{
+				label placement = auto
+			}
+			form Bus_Routes
+			{
+				label placement = auto
+			}
+			form Bus_Types_Master
+			{
+				label placement = auto
+			}
+			form Check_in_Check_out
+			{
+				label placement = auto
+			}
+			form Copy_of_Check_in_Check_out
+			{
+				label placement = auto
+			}
+			form Copy_Of_Employee_State_Less_Form
+			{
+				label placement = auto
+			}
+			form Employee_Details
+			{
+				label placement = auto
+			}
+			form Employee_Pay_Details
+			{
+				label placement = auto
+			}
+			form Empolyee_Shift_Allotment
+			{
+				label placement = auto
+			}
+			form Feed_Back_Form
+			{
+				label placement = auto
+			}
+			form Leave_Request
+			{
+				label placement = auto
+			}
+			form resignation_form
+			{
+				label placement = auto
+			}
+			form Role_Based_Salary_Details
+			{
+				label placement = auto
+			}
+			form Salary_Master
+			{
+				label placement = auto
+			}
+			form Trip_Schedules_Ex_sub
+			{
+				label placement = auto
+			}
+			form Trip_Schedules_Form
+			{
+				label placement = auto
+			}
+			form Upload_important_certificate_for_employees
+			{
+				label placement = auto
+			}
+		}
+		customize
+		{
+			layout = slidingpane
+			font = "default"
+			style = "3"
+			color options
+			{
+				color = turquoise
+			}
+			logo
+			{
+				preference = "none"
+			}
+		}
+	}
+	translation
+{
+{"Language_Settings":{"LANGAGUE_WITH_LOGIN":"browser"}}
+}
+	reports configuration
+	{
+	
+		Version = 2000046041043
+		Key     = "gr0GhF1RZ3BJ7XgW4TWwV3JYGK4vwJARVv52pm9myzCqSyEOPTdutGYezamuBjgT9z4gRVtSnhqaFXtZNWvyt6xm342qWTnh9JsA"
+	}
+}
